@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RecordRotate : MonoBehaviour
 {
-    public float speed;
+    public float rotSpeed = 60; // degrees per second
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +16,6 @@ public class RecordRotate : MonoBehaviour
     void Update()
     {
         if (Input.GetKey(KeyCode.A))
-            transform.Rotate(Vector3.up * speed * Time.deltaTime);
+            transform.Rotate(0, rotSpeed * Time.deltaTime, 0, Space.World);
     }
 }
