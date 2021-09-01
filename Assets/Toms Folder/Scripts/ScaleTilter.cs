@@ -28,11 +28,11 @@ public class ScaleTilter : MonoBehaviour
     {
         crossBar = GetComponent<GameObject>();
         currentTiltAngle = Quaternion.Euler(0, 0, 10);
-        transform.rotation = Quaternion.Lerp(currentTiltAngle,balanced,tiltSpeed);
+        transform.rotation = Quaternion.Lerp(currentTiltAngle,currentTiltAngle, Time.time * tiltSpeed);
     }
 
     
-    void Update()
+    void Update() // this should only be checked when a wheight is placed. **need to fix**
     {
         LargeWeightAdded();
         MediumWeightAdded();
@@ -42,23 +42,23 @@ public class ScaleTilter : MonoBehaviour
         {
             if (leftPlateValue  <= (rightPlateValue + 3)) // need to check if close not greater or equal to
             {
-                transform.rotation = Quaternion.Lerp(currentTiltAngle, closeLeft, tiltSpeed);
+                transform.rotation = Quaternion.Lerp(currentTiltAngle, closeLeft,Time.deltaTime * tiltSpeed);
                 return;
             }
-            transform.rotation = Quaternion.Lerp(currentTiltAngle, maxLeft, tiltSpeed);
+            transform.rotation = Quaternion.Lerp(currentTiltAngle, maxLeft, Time.deltaTime * tiltSpeed);
         } 
         else if (rightPlateValue > leftPlateValue)
         {
             if (rightPlateValue <= (leftPlateValue + 3))
             {
-                transform.rotation = Quaternion.Lerp(currentTiltAngle, closeRight, tiltSpeed);
+                transform.rotation = Quaternion.Lerp(currentTiltAngle, closeRight, Time.deltaTime * tiltSpeed);
                 return;
             }
-            transform.rotation = Quaternion.Lerp(currentTiltAngle, maxRight, tiltSpeed); 
+            transform.rotation = Quaternion.Lerp(currentTiltAngle, maxRight, Time.deltaTime * tiltSpeed); 
         } 
-        else 
+        else if (rightPlate == leftPlate)
         {
-            transform.rotation = Quaternion.Lerp(currentTiltAngle, balanced, tiltSpeed);
+            transform.rotation = Quaternion.Lerp(currentTiltAngle, balanced, Time.deltaTime * tiltSpeed);
             //Do balanced effects.
             return;
         }
