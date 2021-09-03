@@ -70,6 +70,7 @@ public class ScaleTilter : MonoBehaviour
         }
         
         #endregion 
+    }
 
     private void WeightAdded() //  IEnumerator?
     {
@@ -95,7 +96,7 @@ public class ScaleTilter : MonoBehaviour
             //Do balanced effects.
             return;
         }
-    }*/
+    }
 
     #region WeightInputs
     // disregard below it's only to test the code, 
