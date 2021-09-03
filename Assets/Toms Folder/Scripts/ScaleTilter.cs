@@ -41,7 +41,7 @@ public class ScaleTilter : MonoBehaviour
 
 
         #region Weight Added logic // commented out
-        /*
+        
         if (leftPlateValue > rightPlateValue)
         {
             if (leftPlateValue  <= (rightPlateValue + 3)) 
@@ -66,9 +66,9 @@ public class ScaleTilter : MonoBehaviour
             //Do balanced effects.
             return;
         }
-        */
+        
         #endregion 
-    }
+    }/*
     private void WeightAdded() //  IEnumerator?
     {
         if (leftPlateValue > rightPlateValue)
@@ -93,7 +93,7 @@ public class ScaleTilter : MonoBehaviour
             //Do balanced effects.
             return;
         }
-    }
+    }*/
 
     #region WeightInputs
     // disregard below it's only to test the code, 
