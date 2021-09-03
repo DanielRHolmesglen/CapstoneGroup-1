@@ -8,23 +8,10 @@ public class Weight : MonoBehaviour
 
     //basically just to store the value of each weight that attached with this script
     public float value;
-    private AudioSource soundEffect;
-    public GameObject visualEffect;
+    public AudioSource soundEffect;
+   
 
-
-    private void Start()
-    {
-        if (gameObject.GetComponent<AudioSource>())
-        {
-            soundEffect = gameObject.GetComponent<AudioSource>();
-            soundEffect.volume = 0;
-        }
-
-       
-        
-    }
-
-
+    
     public float GetValue()
     {
 
@@ -35,22 +22,7 @@ public class Weight : MonoBehaviour
     public void PlaySound()
     {
 
-        soundEffect.volume = 1;
-        if (visualEffect)
-        {
-            visualEffect.GetComponent<ParticleSystem>().Play();
-        }
-    }
-
-
-    public void StopPlaySound()
-    {
-
-        soundEffect.volume = 0;
-        if (visualEffect)
-        {
-            visualEffect.GetComponent<ParticleSystem>().Stop();
-        }
+        soundEffect.Play();
     }
 
 
