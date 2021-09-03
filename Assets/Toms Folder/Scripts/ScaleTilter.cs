@@ -35,13 +35,15 @@ public class ScaleTilter : MonoBehaviour
     
     void Update() // this should only be checked when a weight is placed. **need to fix**
     {
-        LargeWeightAdded();
-        MediumWeightAdded();
-        SmallWeightAdded();
+        //LargeWeightAdded();
+        //MediumWeightAdded();
+        //SmallWeightAdded();
+        leftPlateValue = leftPlate.GetComponent<ScaleDetect>().ReturnFinalValue();
+        rightPlateValue = rightPlate.GetComponent<ScaleDetect>().ReturnFinalValue();
 
 
         #region Weight Added logic // commented out
-        /*
+        
         if (leftPlateValue > rightPlateValue)
         {
             if (leftPlateValue  <= (rightPlateValue + 3)) 
@@ -66,9 +68,10 @@ public class ScaleTilter : MonoBehaviour
             //Do balanced effects.
             return;
         }
-        */
+        
         #endregion 
     }
+
     private void WeightAdded() //  IEnumerator?
     {
         if (leftPlateValue > rightPlateValue)
