@@ -369,6 +369,8 @@ MonoBehaviour:
   CurrentTotalWeight: 0
   weights: []
   hasThingOn: 0
+  SnapPoint: {fileID: 0}
+  smoothing: 0.4
 --- !u!65 &245284644
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2324,6 +2326,8 @@ MonoBehaviour:
   CurrentTotalWeight: 0
   weights: []
   hasThingOn: 0
+  SnapPoint: {fileID: 1933704707}
+  smoothing: 0.7
 --- !u!65 &2104641013
 BoxCollider:
   m_ObjectHideFlags: 0

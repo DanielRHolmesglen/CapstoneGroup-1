@@ -11,10 +11,13 @@ public class ScaleDetect : MonoBehaviour
 
     public List<GameObject> weights = new List<GameObject>();
 
-    public bool  hasThingOn = false;
-
     
 
+    public bool  hasThingOn = false;
+
+    public Transform SnapPoint;
+
+    public float smoothing = 0.4f;
 
     
 
@@ -51,9 +54,11 @@ public class ScaleDetect : MonoBehaviour
         {
             AddWeight(other.gameObject); //adding to list
 
-           
-            
+            if (SnapPoint)
+            {
+                other.gameObject.transform.position = Vector3.Lerp(other.gameObject.transform.position, SnapPoint.position, smoothing);
 
+            }
            
 
 
