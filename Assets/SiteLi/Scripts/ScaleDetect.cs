@@ -16,6 +16,9 @@ public class ScaleDetect : MonoBehaviour
     public bool  hasThingOn = false;
 
     public Transform SnapPoint;
+    public Transform SnapPoint1;
+    public Transform SnapPoint2;
+    public int snapInt;
 
     public float smoothing = 0.4f;
 
@@ -54,9 +57,26 @@ public class ScaleDetect : MonoBehaviour
         {
             AddWeight(other.gameObject); //adding to list
 
+            //move the weight to snpa point
             if (SnapPoint)
             {
-                other.gameObject.transform.position = Vector3.Lerp(other.gameObject.transform.position, SnapPoint.position, smoothing);
+                if (snapInt == 1)
+                {
+                   other.gameObject.transform.position = Vector3.Lerp(other.gameObject.transform.position, SnapPoint.position, smoothing);
+                    
+                }
+
+                if (snapInt ==2 )
+                {
+                   other.gameObject.transform.position = Vector3.Lerp(other.gameObject.transform.position, SnapPoint1.position, smoothing);
+                    
+                }
+
+                if (snapInt ==3)
+                {
+                    other.gameObject.transform.position = Vector3.Lerp(other.gameObject.transform.position, SnapPoint2.position, smoothing);
+                    
+                }
 
             }
            
@@ -103,7 +123,14 @@ public class ScaleDetect : MonoBehaviour
     {
         
         weights.Add(thisWeight);
-       
+        if (snapInt < 3)
+        {
+            snapInt += 1;
+        }
+        else
+        {
+            snapInt = 1;
+        }
 
     }
 
@@ -112,6 +139,7 @@ public class ScaleDetect : MonoBehaviour
     {
 
         weights.Remove(thisWeight);
+        
        
     }
 
