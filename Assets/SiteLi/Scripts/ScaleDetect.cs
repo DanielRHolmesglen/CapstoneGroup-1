@@ -53,8 +53,8 @@ public class ScaleDetect : MonoBehaviour
 
     
 
-        if (other.gameObject.GetComponent<Draggable>().isDragging == false)
-        {
+       // if (other.gameObject.GetComponent<Draggable>().isDragging == false)
+        //{
             AddWeight(other.gameObject); //adding to list
 
             //move the weight to snpa point
@@ -95,7 +95,7 @@ public class ScaleDetect : MonoBehaviour
 
             UpdateCurrentTotalWeight();
 
-        }  
+        //}  
             
      
 
