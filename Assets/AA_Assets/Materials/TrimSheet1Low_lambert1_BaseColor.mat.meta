@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream:Assets/AA_Assets/Materials/TrimSheet1Low_lambert1_BaseColor.mat.meta
 guid: 6f2a78e1c5d99884fa0aa27b9f74ccf4
+=======
+guid: 466b54eb0e9119945b0c0233da3501c3
+>>>>>>> Stashed changes:Assets/AA_Assets/Materials/Materials/TrimSheet1Low_lambert1_BaseColor.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
