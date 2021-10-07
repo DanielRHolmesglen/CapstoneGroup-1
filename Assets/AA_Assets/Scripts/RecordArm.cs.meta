@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream:Assets/AA_Assets/Scripts/RecordArm.cs.meta
 guid: 245342b5c5df66a4fbd5f4bdd4c31190
+=======
+guid: 4b70fd6fcb6e9784285c384f6796e0a1
+>>>>>>> Stashed changes:Assets/SiteLi/Scripts/CrossBarAttachPoint.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
