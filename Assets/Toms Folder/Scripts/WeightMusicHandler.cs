@@ -3,33 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class WeightMusicHandler : MusicPlayer
+public class WeightMusicHandler : MonoBehaviour
 {
-    private AudioSource musicPlayer;
+    private AudioSource music;
     private float startMusicVolume = 0;
+    public float musicVolume = 10; // make it's own class for the player to control
+    //public AudioClip musicTrack;
 
-    public AudioMixer mixer;
-    public float musicVolume = 10; // player to set their desired volume
-    public AudioClip musicTrack;
-
-    // Start is called before the first frame update
+    // Starts all the audio clips at the same time but sets their volume at zero
     void Start()
     {
-        musicPlayer = GetComponent<AudioSource>();
-        // starts the timer for handling the music being in sync
-        
-        musicPlayer.volume = (startMusicVolume);
-        musicPlayer.Play();
+        music = GetComponent<AudioSource>();
+        music.volume = (startMusicVolume);
+        music.Play();
     }
 
     // Update is called once per frame
     void Update()
     {
         // when activated it starts playing the track
-        if (Input.GetButtonDown("Jump"))
+        if (gameObject.GetComponent<Draggable>().isDragging == true)
         {
-            musicPlayer.volume = musicVolume;
+            music.volume = musicVolume;
         }
-    
     }
+    
 }

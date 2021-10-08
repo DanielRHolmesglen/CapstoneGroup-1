@@ -6,6 +6,8 @@ public class ScaleTilter : MonoBehaviour
 {
     public Transform leftPlate;
     public Transform rightPlate;
+
+    bool scaleIsBalanced = false;
     
     [SerializeField] private float leftPlateValue;
     [SerializeField] private float rightPlateValue;
@@ -59,6 +61,7 @@ public class ScaleTilter : MonoBehaviour
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, balanced, Time.deltaTime * tiltSpeed);
             //Do balanced effects.
+            scaleIsBalanced = true; // pass out to game manager
             return;
         }
     }

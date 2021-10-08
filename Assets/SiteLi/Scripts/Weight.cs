@@ -22,10 +22,8 @@ public class Weight : MonoBehaviour
 
     public float GetValue()
     {
-
         return weightValue;
     }
-
 
     public void PlaySound()
     {
@@ -43,6 +41,4 @@ public class Weight : MonoBehaviour
             visualEffect.GetComponent<ParticleSystem>().Stop();
         }
     }
-
-
 }
