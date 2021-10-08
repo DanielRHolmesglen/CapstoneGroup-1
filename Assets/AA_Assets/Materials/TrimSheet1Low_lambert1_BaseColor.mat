@@ -40,7 +40,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
+<<<<<<< Updated upstream:Assets/AA_Assets/Materials/TrimSheet1Low_lambert1_BaseColor.mat
         m_Texture: {fileID: 2800000, guid: 902f905fe936cfd4b8e91d7a89c1df28, type: 3}
+=======
+        m_Texture: {fileID: 2800000, guid: 5577c29b35b8c51479c1ea57d7eb95f4, type: 3}
+>>>>>>> Stashed changes:Assets/AA_Assets/Record/Materials/Arm/Materials/Arm_ArmM_BaseMap.mat
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
