@@ -108,8 +108,13 @@ public class ScaleDetect : MonoBehaviour
         
             RemoveWeight(collision.gameObject); //remove weight from list
 
+        if (collision.gameObject.GetComponent<AudioSource>())
+        {
+            collision.gameObject.GetComponent<Weight>().StopPlaySound();
+        }
 
-            UpdateCurrentTotalWeight();
+
+        UpdateCurrentTotalWeight();
         
     }
 
@@ -144,8 +149,9 @@ public class ScaleDetect : MonoBehaviour
         CurrentTotalWeight = 0;
         for (int i = 0; i < weights.Count; i++)
         {
-
-            CurrentTotalWeight += weights[i].gameObject.GetComponent<Weight>().weightValue;        }
+            
+            CurrentTotalWeight += weights[i].gameObject.GetComponent<Weight>().value;
+        }
 
     }
 

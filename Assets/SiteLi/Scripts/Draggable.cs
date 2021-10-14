@@ -38,7 +38,7 @@ public class Draggable : MonoBehaviour
     }
 
 
-    Vector3 GetMouseWorldPos()
+     Vector3 GetMouseWorldPos()
     {
         //pixel coordinates of mouse(x,y)
         Vector3 mousePoint = Input.mousePosition;
