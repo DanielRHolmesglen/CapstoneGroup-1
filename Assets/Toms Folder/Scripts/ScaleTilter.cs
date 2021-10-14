@@ -6,9 +6,11 @@ public class ScaleTilter : MonoBehaviour
 {
     public Transform leftPlate;
     public Transform rightPlate;
+
+    bool scaleIsBalanced = false;
     
-    [SerializeField] private float leftPlateValue;
-    [SerializeField] private float rightPlateValue;
+    public float leftPlateValue;
+    public float rightPlateValue;
     // below weights would take info from weight prefabs or just left here.
     private float weightLarge = 6f;
     private float weightMedium = 3f;
@@ -33,11 +35,14 @@ public class ScaleTilter : MonoBehaviour
     
     void Update() 
     {
+        WeightAmountUpdated();
+        /* for testing only
         LargeWeightAdded();
         MediumWeightAdded();
         SmallWeightAdded();
+        */
     }
-    private void WeightAdded()
+    public void CalculateWeights()
     {
         if (leftPlateValue > rightPlateValue)
         {
@@ -59,30 +64,37 @@ public class ScaleTilter : MonoBehaviour
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, balanced, Time.deltaTime * tiltSpeed);
             //Do balanced effects.
+            scaleIsBalanced = true; // pass out to game manager
             return;
         }
     }
 
-    #region WeightInputs
+    public void WeightAmountUpdated()
+    {
+        CalculateWeights();
+    }
+    
+    #region WeightInputs 
+    /*
     // this will all be set by putting the weights on the plates eventually
     public void LargeWeightAdded() 
     {
         if (Input.GetKeyDown(KeyCode.Q)) leftPlateValue += weightLarge;
         else if (Input.GetKeyDown(KeyCode.E)) rightPlateValue += weightLarge;
-        WeightAdded();
+        CalculateWeights();
     }
     public void MediumWeightAdded()
     {
         if (Input.GetKeyDown(KeyCode.A))  leftPlateValue += weightMedium; 
         else if (Input.GetKeyDown(KeyCode.D)) rightPlateValue += weightMedium;
-        WeightAdded();
+        CalculateWeights();
     }
     public void SmallWeightAdded()
     {
         if (Input.GetKeyDown(KeyCode.Z)) leftPlateValue += weightSmall;
         else if (Input.GetKeyDown(KeyCode.C)) rightPlateValue += weightSmall;
-        WeightAdded();
-    }
+        CalculateWeights();
+    }*/
     #endregion
-
+    
 }

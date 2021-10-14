@@ -111,9 +111,8 @@ public class ScaleDetect : MonoBehaviour
         CurrentTotalWeight = 0;
         for (int i = 0; i < weights.Count; i++)
         {
-            
-            CurrentTotalWeight += weights[i].gameObject.GetComponent<Weight>().value;
-        }
+
+            CurrentTotalWeight += weights[i].gameObject.GetComponent<Weight>().weightValue;        }
 
     }
 
