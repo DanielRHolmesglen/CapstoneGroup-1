@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream:Assets/AA_Assets/Assets/Record Player.fbx.meta
 guid: 096ee1570555b6541b32752c947b8bdf
+=======
+guid: 0f5db8060ddcbb94a93109ab25c0819b
+>>>>>>> Stashed changes:Assets/AA_Assets/Bamboo.fbx.meta
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []

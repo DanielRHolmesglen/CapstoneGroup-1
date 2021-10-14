@@ -1,9 +1,13 @@
 fileFormatVersion: 2
 <<<<<<< Updated upstream:Assets/AA_Assets/Assets/GameAssets.obj.meta
+<<<<<<< Updated upstream:Assets/AA_Assets/Assets/GameAssets.obj.meta
 guid: 42e4ea9ae6c4f5b4cbb67241404a7de4
 =======
 guid: b71a665c3c946e34daf5f446d93b83ec
 >>>>>>> Stashed changes:Assets/AA_Assets/Assets/Bamboo.fbx.meta
+=======
+guid: ae02f1968d99c2d4ea740b8e7d329e72
+>>>>>>> Stashed changes:Assets/AA_Assets/Table.fbx.meta
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []

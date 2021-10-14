@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream:Assets/AA_Assets/Assets/Table.obj.meta
 guid: 20d005affabccf6479a03948fdebe879
+=======
+guid: c02bbc21e058fcc41b7ca4aaaab89d55
+>>>>>>> Stashed changes:Assets/AA_Assets/Gate.obj.meta
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
