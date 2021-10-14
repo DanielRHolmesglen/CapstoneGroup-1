@@ -312,7 +312,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3111cf6fb29ff104a9bd6c25bb5bbafd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distToPickup: 0.7
+  distToPickup: 2.42
+  DebugParticle: {fileID: 1850894453}
 --- !u!1 &245284641 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2637207234961833195, guid: 17b075eba9d986841aa4b6bccca89c2f,
@@ -2408,6 +2409,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989312399768363967, guid: 2403eb0a4d63c481a942e573736e806d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 372822527349619734, guid: 2403eb0a4d63c481a942e573736e806d, type: 3}
