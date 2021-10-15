@@ -12,7 +12,7 @@ using UnityEngine.UI;
 /// </summary>
 public class GrabbingHand : MonoBehaviour
 {
-    public float distToPickup = 20f; //used to limit how far you can grab
+    public float distToPickup = 0.3f; //used to limit how far you can grab
     [SerializeField]
     bool handClosed = false; //used to track if the hand should look for new objects, or move the selected object
     public GameObject DebugParticle;
@@ -28,25 +28,23 @@ public class GrabbingHand : MonoBehaviour
 
         //check that button is being held, if so set handClosed to true
         //if (primaryInput.GetButton(VRButton.Trigger) || Input.GetMouseButton(0))
-            if (primaryInput.GetButton(VRButton.Trigger) )
+            if (primaryInput.GetButton(VRButton.Trigger) || Input.GetMouseButtonDown(0))
                 handClosed = true;
         else
             handClosed = false;
 
         if(!handClosed)
         {
-            if(Physics.Raycast(transform.position,transform.TransformDirection(Vector3.forward),out Hit,distToPickup))
-            {  
-                
+            if(Physics.Raycast(transform.position,transform.TransformDirection(Vector3.forward),out Hit))
+            {
                 Debug.Log(Hit.transform.name);
 
-                var grabScript = Hit.transform.gameObject.transform.GetComponent<IGrabbable>();
+                var grabScript = Hit.transform.gameObject.transform.parent.GetComponent<IGrabbable>();
                 if(grabScript != null) 
                 {
-
                     DebugParticle.GetComponent<ParticleSystem>().Play();
                     grabScript.Grab();
-                    holdingTarget = Hit.transform.gameObject.transform.GetComponent<Rigidbody>();
+                    holdingTarget = Hit.transform.gameObject.transform.parent.GetComponent<Rigidbody>();
                    
                 }
 
