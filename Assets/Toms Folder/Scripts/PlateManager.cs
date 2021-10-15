@@ -21,7 +21,7 @@ public class PlateManager : MonoBehaviour
     {
         for (int i = 0; i < weightLocations.Length; i++)
         {
-            // put weight in random spot on plate
+            // put active weight in random spot on plate
             // check if spot is full or empty
         }
         //add any weights to weightAmount or take any off
