@@ -36,6 +36,11 @@ public class ScaleTilter : MonoBehaviour
     void Update() 
     {
         WeightAmountUpdated();
+        /* for testing only
+        LargeWeightAdded();
+        MediumWeightAdded();
+        SmallWeightAdded();
+        */
     }
     public void CalculateWeights()
     {
@@ -69,7 +74,7 @@ public class ScaleTilter : MonoBehaviour
         CalculateWeights();
     }
     
-    #region WeightInputsForDebugging 
+    #region WeightInputs 
     /*
     // this will all be set by putting the weights on the plates eventually
     public void LargeWeightAdded() 
