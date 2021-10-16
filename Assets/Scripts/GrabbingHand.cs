@@ -11,28 +11,63 @@ using Valve.VR.InteractionSystem;
 /// </summary>
 public class GrabbingHand : MonoBehaviour
 {
-    public float distToPickup = 0.3f; //used to limit how far you can grab
+    public float distToPickup = 1.2f; //used to limit how far you can grab
     bool handClosed = false; //used to track if the hand should look for new objects, or move the selected object
-    
+    public GameObject DebugParticle;
 
     Rigidbody holdingTarget; //the rigidbody of the object being held
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        RaycastHit Hit;
         //Get the primaryInput
-        var primaryInput = VRDevice.Device.PrimaryInputDevice;
+
 
         //check that button is being held, if so set handClosed to true
-        if (primaryInput.GetButton(VRButton.Trigger) || Input.GetMouseButton(0))
+        //if (primaryInput.GetButton(VRButton.Trigger) || Input.GetMouseButton(0))
+        var primaryInput = VRDevice.Device.PrimaryInputDevice;
+        if (primaryInput.GetButton(VRButton.Trigger))
+        {
+            Debug.Log("Close");
             handClosed = true;
+        }
+
         else
             handClosed = false;
 
-        if(!handClosed)
+        if (!handClosed)
         {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, distToPickup); //return a list of grabable objects in range
-            if (colliders.Length > 0)
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out Hit,distToPickup))
+            {
+
+
+                var grabScript = Hit.transform.GetComponent<IGrabbable>();
+                if (grabScript != null)
+                {
+                    Debug.Log("attempting to select " + Hit.transform.name);
+                    if (DebugParticle)
+                    {
+                        DebugParticle.GetComponent<ParticleSystem>().Play();
+                    }
+                    grabScript.Grab();
+                    holdingTarget = Hit.transform.GetComponent<Rigidbody>();
+
+                }
+                else
+                {
+                    Debug.Log(Hit.transform.name + "Does not have a grabable script");
+                }
+
+
+            }
+
+
+
+            /* Collider[] colliders = Physics.OverlapSphere(transform.position, distToPickup); //return a list of grabable objects in range
+
+            
+           if (colliders.Length > 0)
             {
                 foreach (var item in colliders)
                 {
@@ -40,18 +75,25 @@ public class GrabbingHand : MonoBehaviour
                     if (grabScript != null)
                     {
                         grabScript.Grab();//run any feedback you have put on the grabbable object
+
                         holdingTarget = item.transform.parent.GetComponent<Rigidbody>(); //get the first object in the list and assign it's parent rigidbody to
                         break;
                     }
                 }
                 
-            }
+            }*/
+
             else
             {
+
                 holdingTarget = null;
+                if (DebugParticle)
+                {
+                    DebugParticle.GetComponent<ParticleSystem>().Stop();
+                }
             }
         }
-        else
+            else
         {
             if (holdingTarget)
             {

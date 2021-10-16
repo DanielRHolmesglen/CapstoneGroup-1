@@ -13,11 +13,11 @@ public class TestGameManager : MonoBehaviour
    
     public GameObject left_Scale;
     public GameObject right_Scale;
+    public GameObject EaqulEffect;
 
 
-
-    public GameObject correctImage;
-    public GameObject wrongImage;
+     GameObject correctImage;
+     GameObject wrongImage;
 
     
 
@@ -69,8 +69,8 @@ public class TestGameManager : MonoBehaviour
         else if (!hasThingOnBothScale)
         {
 
-            correctImage.SetActive(false);
-            wrongImage.SetActive(false);
+            /*correctImage.SetActive(false);
+            wrongImage.SetActive(false);*/
         }
 
 
@@ -98,12 +98,12 @@ public class TestGameManager : MonoBehaviour
         {
 
             Debug.Log("okay... i guess you are lucky today");
-
-            if (correctImage)
+            
+            /*if (correctImage)
             {
                 correctImage.SetActive(true);
                 wrongImage.SetActive(false);
-            }
+            }*/
 
         }
 
@@ -112,16 +112,25 @@ public class TestGameManager : MonoBehaviour
         else if(!isEaqual && hasThingOnBothScale)
         {
             Debug.Log("not this one!!! you stupid!!!");
+            StartCoroutine(PlayEqual());
 
-            if (wrongImage)
+           /* if (wrongImage)
             {
                 wrongImage.SetActive(true);
                 correctImage.SetActive(false);
-            }
+            }*/
 
         }
 
 
+    }
+
+
+    IEnumerator PlayEqual() 
+    {
+        yield return new WaitForSeconds(1f);
+        EaqulEffect.GetComponent<ParticleSystem>().Play();
+        yield return null;
     }
    
 
