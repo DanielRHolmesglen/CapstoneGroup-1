@@ -7,6 +7,9 @@ public class ScaleTilter : MonoBehaviour
     public Transform leftPlate;
     public Transform rightPlate;
 
+    //This line is added by SiTe ,it's mainly used to reference the GameManager
+    public GameObject GameManager;
+
     bool scaleIsBalanced = false;
     
     public float leftPlateValue;
@@ -26,6 +29,8 @@ public class ScaleTilter : MonoBehaviour
     private Quaternion closeRight = Quaternion.Euler(0, 0, -5);
     private Quaternion maxRight = Quaternion.Euler(0, 0, -15);
 
+    
+
     void Start()
     {
         //not working
@@ -35,12 +40,11 @@ public class ScaleTilter : MonoBehaviour
     
     void Update() 
     {
+        //these two lines was added by SiTe , mainly used to get the value of two plates from GameManager 
+        leftPlateValue = GameManager.GetComponent<TestGameManager>().leftScaleWeight;
+        rightPlateValue = GameManager.GetComponent<TestGameManager>().rightScaleWeight;
+
         WeightAmountUpdated();
-        /* for testing only
-        LargeWeightAdded();
-        MediumWeightAdded();
-        SmallWeightAdded();
-        */
     }
     public void CalculateWeights()
     {
@@ -74,7 +78,7 @@ public class ScaleTilter : MonoBehaviour
         CalculateWeights();
     }
     
-    #region WeightInputs 
+    #region WeightInputsForDebugging 
     /*
     // this will all be set by putting the weights on the plates eventually
     public void LargeWeightAdded() 
