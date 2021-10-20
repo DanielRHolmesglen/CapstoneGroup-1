@@ -23,11 +23,11 @@ public class GrabbingHand : MonoBehaviour
         RaycastHit Hit;
         //Get the primaryInput
 
-
+        var secondInput = VRDevice.Device.SecondaryInputDevice;
         //check that button is being held, if so set handClosed to true
         //if (primaryInput.GetButton(VRButton.Trigger) || Input.GetMouseButton(0))
         var primaryInput = VRDevice.Device.PrimaryInputDevice;
-        if (primaryInput.GetButton(VRButton.Trigger))
+        if (primaryInput.GetButton(VRButton.Trigger)|| secondInput.GetButton(VRButton.Trigger))
         {
             Debug.Log("Close");
             handClosed = true;
@@ -46,6 +46,7 @@ public class GrabbingHand : MonoBehaviour
                 if (grabScript != null)
                 {
                     Debug.Log("attempting to select " + Hit.transform.name);
+                    //if the object is grabbable,trigger the debug particle
                     if (DebugParticle)
                     {
                         DebugParticle.GetComponent<ParticleSystem>().Play();
