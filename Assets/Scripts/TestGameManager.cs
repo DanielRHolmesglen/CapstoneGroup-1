@@ -36,7 +36,8 @@ public class TestGameManager : MonoBehaviour
     
     void Start()
     {
-        
+        EaqulEffect.SetActive(false);
+
     }
 
    
@@ -54,13 +55,14 @@ public class TestGameManager : MonoBehaviour
         if (left_Scale.GetComponent<ScaleDetect>().hasThingOn == true && right_Scale.GetComponent<ScaleDetect>().hasThingOn == true)
         {
             hasThingOnBothScale = right_Scale.GetComponent<ScaleDetect>().ReturnBool();
+            
         }
         else { hasThingOnBothScale = false; }
 
 
 
         //if there's something on the weight_scale , check if two side has the same weight value
-        if (hasThingOnBothScale)
+        if (hasThingOnBothScale == true)
         {
             CheckValue();
         }
@@ -74,7 +76,7 @@ public class TestGameManager : MonoBehaviour
         }
 
 
-        if(leftScaleWeight == rightScaleWeight)
+        if(leftScaleWeight == rightScaleWeight && hasThingOnBothScale == true)
         {
 
             isEaqual = true;
@@ -92,13 +94,16 @@ public class TestGameManager : MonoBehaviour
     public void CheckValue()
 
     {
-        //if two side value are the same , call whatever function inside here
+        
 
-        if(isEaqual && hasThingOnBothScale)
+        if( isEaqual== false || hasThingOnBothScale == false)
         {
 
-            Debug.Log("okay... i guess you are lucky today");
+            Debug.Log("the weight is not eaqual");
+
             
+            EaqulEffect.GetComponent<ParticleSystem>().Stop();
+
             /*if (correctImage)
             {
                 correctImage.SetActive(true);
@@ -107,11 +112,11 @@ public class TestGameManager : MonoBehaviour
 
         }
 
-        //if two side value are not the same , call whatever function inside here
+        
 
-        else if(!isEaqual && hasThingOnBothScale)
+         else if(isEaqual==true && hasThingOnBothScale==true)
         {
-            Debug.Log("not this one!!! you stupid!!!");
+            Debug.Log("the weight is equal");
             StartCoroutine(PlayEqual());
 
            /* if (wrongImage)
@@ -129,17 +134,23 @@ public class TestGameManager : MonoBehaviour
     IEnumerator PlayEqual() 
     {
         yield return new WaitForSeconds(1f);
-        EaqulEffect.GetComponent<ParticleSystem>().Play();
+        if (EaqulEffect)
+        {
+            EaqulEffect.SetActive(true);
+            EaqulEffect.GetComponent<ParticleSystem>().Play();
+           
+           
+        }
         yield return null;
     }
+
    
 
 
-    
 
 
 
-    
+
 
 
 
