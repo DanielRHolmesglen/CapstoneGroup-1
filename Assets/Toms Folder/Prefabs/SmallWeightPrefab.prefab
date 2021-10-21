@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 488196686686416580}
   - component: {fileID: 8215293284079199485}
   - component: {fileID: 3429941658463564945}
+  - component: {fileID: -7378504562152161726}
   m_Layer: 0
   m_Name: SmallWeightPrefab
   m_TagString: Untagged
@@ -175,6 +176,18 @@ MonoBehaviour:
   weightValue: 0
   soundEffect: {fileID: 0}
   visualEffect: {fileID: 0}
+--- !u!114 &-7378504562152161726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640525101667588528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac73f7e74904d74192fa866b3e176b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4006565648099328019
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -182,6 +195,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8822497194451607888}
     m_Modifications:
+    - target: {fileID: -927199367670048503, guid: 70f8804cce4b87c408873d568b2e262d,
+        type: 3}
+      propertyPath: m_Name
+      value: WeightSmall
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 70f8804cce4b87c408873d568b2e262d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -236,11 +254,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 70f8804cce4b87c408873d568b2e262d,
-        type: 3}
-      propertyPath: m_Name
-      value: WeightSmall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70f8804cce4b87c408873d568b2e262d, type: 3}
