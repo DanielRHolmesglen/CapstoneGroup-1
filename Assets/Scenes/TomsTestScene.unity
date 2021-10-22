@@ -2718,6 +2718,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.4918
       objectReference: {fileID: 0}
+    - target: {fileID: 8125449209812977011, guid: 4dcf6f4dae4bfbe4b93fbe3ae435606c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.085
+      objectReference: {fileID: 0}
+    - target: {fileID: 5086882684252682080, guid: 4dcf6f4dae4bfbe4b93fbe3ae435606c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1368390222889590069, guid: 4dcf6f4dae4bfbe4b93fbe3ae435606c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4dcf6f4dae4bfbe4b93fbe3ae435606c, type: 3}

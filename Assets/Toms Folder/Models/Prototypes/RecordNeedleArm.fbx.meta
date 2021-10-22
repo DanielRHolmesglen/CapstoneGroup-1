@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 627a59f991bf1f14f8751bb8123afafd
+guid: 35c2d5e81c0ab3e419d8357250f80b72
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Room
-    second: {fileID: 2100000, guid: 4170f929230167149a32047bcf8f1fd7, type: 2}
+      name: Material.001
+    second: {fileID: 2100000, guid: c738f861b60574b4d80232f3946dd4a6, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -48,7 +48,7 @@ ModelImporter:
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
