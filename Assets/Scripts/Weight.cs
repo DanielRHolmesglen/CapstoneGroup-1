@@ -10,9 +10,14 @@ public class Weight : MonoBehaviour
     public float weightValue;
     public AudioSource soundEffect;
     public GameObject visualEffect;
+    public Vector3 StartPosition;
+    public Quaternion StartRotation;
 
     private void Start()
     {
+        StartPosition = transform.position;
+        StartRotation = transform.rotation;
+
         if (gameObject.GetComponent<AudioSource>())
         {
             soundEffect = gameObject.GetComponent<AudioSource>();
@@ -41,4 +46,17 @@ public class Weight : MonoBehaviour
             visualEffect.GetComponent<ParticleSystem>().Stop();
         }
     }
+
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.GetComponent<FloorTag>())
+        {
+            transform.position = StartPosition;
+            transform.rotation = StartRotation;
+        }
+    }
+
+
 }

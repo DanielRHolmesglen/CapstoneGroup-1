@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class ScaleDetect : MonoBehaviour
 {
     //PS: this script need to be attached to each side of the scale handle
@@ -10,14 +11,13 @@ public class ScaleDetect : MonoBehaviour
     public float CurrentTotalWeight = 0;
 
     public List<GameObject> weights = new List<GameObject>();
-
+    public List<Transform> weightTransforms = new List<Transform>();
+    public List<int> randomNumbers = new List<int>();
     
 
     public bool  hasThingOn = false;
 
-    public Transform SnapPoint;
-    public Transform SnapPoint1;
-    public Transform SnapPoint2;
+    
     public int snapInt;
 
     public float smoothing = 0.4f;
@@ -29,7 +29,10 @@ public class ScaleDetect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        for (int n = 0; n < 9; n++)    //  Populate list
+        {
+            randomNumbers.Add(n);
+        }
     }
 
     // Update is called once per frame
@@ -53,32 +56,16 @@ public class ScaleDetect : MonoBehaviour
 
     
 
-       // if (other.gameObject.GetComponent<Draggable>().isDragging == false)
-        //{
+       
             AddWeight(other.gameObject); //adding to list
+            int i = Random.Range(0, randomNumbers.Count - 1);
+        
+            other.gameObject.transform.position = Vector3.Lerp(other.gameObject.transform.position,weightTransforms[i].transform.position,  smoothing);
+            other.gameObject.transform.rotation = other.gameObject.GetComponent<Weight>().StartRotation;
+            //weightTransforms[i].GetComponent<HasWeightOnItTag>().currentWeight = other.gameObject;
+        
 
-            //move the weight to snpa point
-            if (SnapPoint)
-            {
-                if (snapInt == 1)
-                {
-                   other.gameObject.transform.position = Vector3.Lerp(other.gameObject.transform.position, SnapPoint.position, smoothing);
-                    
-                }
-
-                if (snapInt ==2 )
-                {
-                   other.gameObject.transform.position = Vector3.Lerp(other.gameObject.transform.position, SnapPoint1.position, smoothing);
-                    
-                }
-
-                if (snapInt ==3)
-                {
-                    other.gameObject.transform.position = Vector3.Lerp(other.gameObject.transform.position, SnapPoint2.position, smoothing);
-                    
-                }
-
-            }
+           
            
 
 
@@ -95,7 +82,7 @@ public class ScaleDetect : MonoBehaviour
 
             UpdateCurrentTotalWeight();
 
-        //}  
+         
             
      
 
@@ -164,6 +151,9 @@ public class ScaleDetect : MonoBehaviour
     {
         return CurrentTotalWeight;
     }
+
+
+    
 
 
 
