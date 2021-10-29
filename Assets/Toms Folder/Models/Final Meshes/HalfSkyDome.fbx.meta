@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0bd27d967d1b2d141b6c6d1dc9eee762
+guid: 37412a24864ae0e459fb864c006faff9
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: WoodColour
-    second: {fileID: 2100000, guid: 79fb8439f16fc1049b4a1ac65cc1ab6c, type: 2}
+      name: Sky
+    second: {fileID: 2100000, guid: 19ed096f845b9d74bab23eef0d1706c2, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -48,7 +48,7 @@ ModelImporter:
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
