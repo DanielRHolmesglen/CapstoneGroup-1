@@ -12,6 +12,7 @@ public class Weight : MonoBehaviour
     public GameObject visualEffect;
     public Vector3 StartPosition;
     public Quaternion StartRotation;
+    public int type;
 
     private void Start()
     {
