@@ -89,13 +89,18 @@ public class TestGameManager : MonoBehaviour
 
         if(left_Scale.GetComponent<ScaleDetect>().alreadyHasThatType == true || right_Scale.GetComponent<ScaleDetect>().alreadyHasThatType == true) 
         {
-
-            DialogueText.SetActive(true);
+            if (DialogueText)
+            {
+                DialogueText.SetActive(true);
+            }
         }
 
         else 
         {
-            DialogueText.SetActive(false);
+            if (DialogueText)
+            {
+                DialogueText.SetActive(false);
+            }
         }
 
 
