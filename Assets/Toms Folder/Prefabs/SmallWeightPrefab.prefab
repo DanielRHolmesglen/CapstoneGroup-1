@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f464c26cfe54956a19fae3bc023e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weightValue: 0
+  weightValue: 1
   soundEffect: {fileID: 0}
   visualEffect: {fileID: 0}
 --- !u!114 &-7378504562152161726
