@@ -1,33 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class ScaleDetect : MonoBehaviour
 {
     //PS: this script need to be attached to each side of the scale handle
 
-    public int countNumber;
+   
     public float CurrentTotalWeight = 0;
     public GameObject CurrentPickedWeight;
 
     public List<GameObject> weights = new List<GameObject>();
     public List<Transform> weightTransforms = new List<Transform>();
-    public List<GameObject> waitingList = new List<GameObject>();
+   
 
-    public GameObject previousi;
-    public GameObject lasti;
-
+   
+    
 
 
 
     
     public bool hasThingOn = false;
     public bool alreadyHasThatType = false;
-    public bool has1 = false;
-    public bool has2 = false;
-    public bool has3 = false;
-    public bool has4 = false;
+   
 
     public int snapInt = 0;
     public float smoothing = 0.4f;
@@ -59,7 +56,7 @@ public class ScaleDetect : MonoBehaviour
         }
 
 
-        HasSameTypeCheck();
+        StartCoroutine(HasSameTypeCheck());
        
 
     }
@@ -150,7 +147,7 @@ public class ScaleDetect : MonoBehaviour
     }
 
 
-    void HasSameTypeCheck() 
+    IEnumerator HasSameTypeCheck() 
     {
         if (weights.Count > 1)
         {
@@ -161,17 +158,20 @@ public class ScaleDetect : MonoBehaviour
                     if (CurrentPickedWeight.GetComponent<Weight>().type == weights[i].GetComponent<Weight>().type)
                     {
 
-                        Debug.Log("Has same type");
+                        alreadyHasThatType=true;
                         CurrentPickedWeight.transform.position = Vector3.Lerp(CurrentPickedWeight.transform.position, CurrentPickedWeight.GetComponent<Weight>().StartPosition, smoothing * 2);
 
                         CurrentPickedWeight.transform.rotation = CurrentPickedWeight.GetComponent<Weight>().StartRotation;
                         CurrentPickedWeight = null;
+                        yield return new WaitForSeconds(5);
+                        alreadyHasThatType = false;
                     }
                 }
 
             }
 
         }
+        yield return null;
     }
 
 

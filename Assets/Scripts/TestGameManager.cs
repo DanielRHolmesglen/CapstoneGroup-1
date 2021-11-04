@@ -14,7 +14,7 @@ public class TestGameManager : MonoBehaviour
     public GameObject left_Scale;
     public GameObject right_Scale;
     public GameObject EaqulEffect;
-
+    public GameObject DialogueText;
 
      GameObject correctImage;
      GameObject wrongImage;
@@ -85,6 +85,19 @@ public class TestGameManager : MonoBehaviour
         {
             isEaqual = false;
         }
+
+
+        if(left_Scale.GetComponent<ScaleDetect>().alreadyHasThatType == true || right_Scale.GetComponent<ScaleDetect>().alreadyHasThatType == true) 
+        {
+
+            DialogueText.SetActive(true);
+        }
+
+        else 
+        {
+            DialogueText.SetActive(false);
+        }
+
 
 
     } 
