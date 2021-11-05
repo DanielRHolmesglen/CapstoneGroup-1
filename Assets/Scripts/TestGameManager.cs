@@ -81,15 +81,7 @@ public class TestGameManager : MonoBehaviour
         }
 
 
-        if(leftScaleWeight == rightScaleWeight && hasThingOnBothScale == true)
-        {
-
-            isEaqual = true;
-        }
-        else
-        {
-            isEaqual = false;
-        }
+       
 
         //left_Scale.GetComponent<ScaleDetect>().alreadyHasThatType == true || right_Scale.GetComponent<ScaleDetect>().alreadyHasThatType == true
         if (alreadyHasThatType == true ) 
@@ -109,10 +101,20 @@ public class TestGameManager : MonoBehaviour
         }
 
 
-        weightsOnPlate = left_Scale.GetComponent<ScaleDetect>().weights.Union(right_Scale.GetComponent<ScaleDetect>().weights).ToList();
-        
+        //weightsOnPlate = left_Scale.GetComponent<ScaleDetect>().weights.Union(right_Scale.GetComponent<ScaleDetect>().weights).ToList();
+       
 
         StartCoroutine(HasSameTypeCheck());
+
+        if (leftScaleWeight == rightScaleWeight && hasThingOnBothScale == true && alreadyHasThatType == false)
+        {
+
+            isEaqual = true;
+        }
+        else
+        {
+            isEaqual = false;
+        }
 
     } 
 
@@ -184,7 +186,7 @@ public class TestGameManager : MonoBehaviour
                 {
                     if (currentPickedWeight.GetComponent<Weight>().type == weightsOnPlate[i].GetComponent<Weight>().type)
                     {
-
+                        
                         alreadyHasThatType = true;
                         currentPickedWeight.transform.position = Vector3.Lerp(currentPickedWeight.transform.position, currentPickedWeight.GetComponent<Weight>().StartPosition, smoothing * 2);
 

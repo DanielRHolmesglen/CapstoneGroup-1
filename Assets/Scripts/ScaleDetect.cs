@@ -103,6 +103,7 @@ public class ScaleDetect : MonoBehaviour
     {
         
         weights.Add(thisWeight);
+        TestGameManagerScript.weightsOnPlate.Add(thisWeight);
         snapInt += 1;
         if (snapInt == 8)
         {
@@ -116,8 +117,9 @@ public class ScaleDetect : MonoBehaviour
 
     void RemoveWeight(GameObject thisWeight)
     {
-
+       
         weights.Remove(thisWeight);
+        TestGameManagerScript.weightsOnPlate.Remove(thisWeight);
         UpdateCurrentTotalWeight();
 
     }
