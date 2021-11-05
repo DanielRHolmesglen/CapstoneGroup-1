@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class TestGameManager : MonoBehaviour
 {
@@ -15,15 +16,19 @@ public class TestGameManager : MonoBehaviour
     public GameObject right_Scale;
     public GameObject EaqulEffect;
     public GameObject DialogueText;
-
-     GameObject correctImage;
+    public GameObject currentPickedWeight;
+    public List<GameObject> weightsOnPlate = new List<GameObject>();
+    public bool alreadyHasThatType = false;
+    GameObject correctImage;
      GameObject wrongImage;
 
-    
+
+    public float smoothing = 0.4f;
+
 
     //things can ignored in inspector
 
-  
+
     public float rightScaleWeight;
     public float leftScaleWeight;
 
@@ -76,18 +81,10 @@ public class TestGameManager : MonoBehaviour
         }
 
 
-        if(leftScaleWeight == rightScaleWeight && hasThingOnBothScale == true)
-        {
+       
 
-            isEaqual = true;
-        }
-        else
-        {
-            isEaqual = false;
-        }
-
-
-        if(left_Scale.GetComponent<ScaleDetect>().alreadyHasThatType == true || right_Scale.GetComponent<ScaleDetect>().alreadyHasThatType == true) 
+        //left_Scale.GetComponent<ScaleDetect>().alreadyHasThatType == true || right_Scale.GetComponent<ScaleDetect>().alreadyHasThatType == true
+        if (alreadyHasThatType == true ) 
         {
             if (DialogueText)
             {
@@ -104,6 +101,20 @@ public class TestGameManager : MonoBehaviour
         }
 
 
+        //weightsOnPlate = left_Scale.GetComponent<ScaleDetect>().weights.Union(right_Scale.GetComponent<ScaleDetect>().weights).ToList();
+       
+
+        StartCoroutine(HasSameTypeCheck());
+
+        if (leftScaleWeight == rightScaleWeight && hasThingOnBothScale == true && alreadyHasThatType == false)
+        {
+
+            isEaqual = true;
+        }
+        else
+        {
+            isEaqual = false;
+        }
 
     } 
 
@@ -162,8 +173,35 @@ public class TestGameManager : MonoBehaviour
         yield return null;
     }
 
-   
 
+    IEnumerator HasSameTypeCheck()
+    {
+        //weights.Count
+
+        if (weightsOnPlate.Count > 1)
+        {
+            for (int i = 0; i < weightsOnPlate.Count - 1; i++)
+            {
+                if (currentPickedWeight)
+                {
+                    if (currentPickedWeight.GetComponent<Weight>().type == weightsOnPlate[i].GetComponent<Weight>().type)
+                    {
+                        
+                        alreadyHasThatType = true;
+                        currentPickedWeight.transform.position = Vector3.Lerp(currentPickedWeight.transform.position, currentPickedWeight.GetComponent<Weight>().StartPosition, smoothing * 2);
+
+                        currentPickedWeight.transform.rotation = currentPickedWeight.GetComponent<Weight>().StartRotation;
+                        currentPickedWeight = null;
+                        yield return new WaitForSeconds(5);
+                        alreadyHasThatType = false;
+                    }
+                }
+
+            }
+
+        }
+        yield return null;
+    }
 
 
 
