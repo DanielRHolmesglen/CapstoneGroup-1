@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
+
 public class ScaleDetect : MonoBehaviour
 {
     //PS: this script need to be attached to each side of the scale handle
@@ -11,9 +12,11 @@ public class ScaleDetect : MonoBehaviour
    
     public float CurrentTotalWeight = 0;
     public GameObject CurrentPickedWeight;
+    public TestGameManager TestGameManagerScript;
 
     public List<GameObject> weights = new List<GameObject>();
     public List<Transform> weightTransforms = new List<Transform>();
+    public List<GameObject> weightsOnThePlate = new List<GameObject>();
    
 
    
@@ -36,15 +39,15 @@ public class ScaleDetect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        TestGameManagerScript = TestGameManagerScript.GetComponent<TestGameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
 
-        
+        //weightsOnThePlate = TestGameManagerScript.weightsOnPlate;
+       // CurrentPickedWeight = TestGameManagerScript.currentPickedWeight;
 
         if (CurrentTotalWeight == 0)
         {
@@ -56,7 +59,9 @@ public class ScaleDetect : MonoBehaviour
         }
 
 
-        StartCoroutine(HasSameTypeCheck());
+        //StartCoroutine(HasSameTypeCheck());
+       
+        
        
 
     }
@@ -68,7 +73,7 @@ public class ScaleDetect : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
 
-            CurrentPickedWeight = other.gameObject;
+            TestGameManagerScript.currentPickedWeight = other.gameObject;
             AddWeight(other.gameObject); 
             SetWeight(other.gameObject);
            
@@ -147,15 +152,17 @@ public class ScaleDetect : MonoBehaviour
     }
 
 
-    IEnumerator HasSameTypeCheck() 
+    /*IEnumerator HasSameTypeCheck() 
     {
-        if (weights.Count > 1)
+        //weights.Count
+
+        if (weightsOnThePlate.Count > 1)
         {
-            for (int i = 0; i < weights.Count - 1; i++)
+            for (int i = 0; i < weightsOnThePlate.Count - 1; i++)
             {
                 if (CurrentPickedWeight)
                 {
-                    if (CurrentPickedWeight.GetComponent<Weight>().type == weights[i].GetComponent<Weight>().type)
+                    if (CurrentPickedWeight.GetComponent<Weight>().type == weightsOnThePlate[i].GetComponent<Weight>().type)
                     {
 
                         alreadyHasThatType=true;
@@ -172,7 +179,7 @@ public class ScaleDetect : MonoBehaviour
 
         }
         yield return null;
-    }
+    }*/
 
 
     
