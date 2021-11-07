@@ -17,6 +17,9 @@ public class TestGameManager : MonoBehaviour
     public GameObject EaqulEffect;
     public GameObject DialogueText;
     public GameObject currentPickedWeight;
+    public GameObject record;
+    public GameObject recordApperarEffect;
+
     public List<GameObject> weightsOnPlate = new List<GameObject>();
     public bool alreadyHasThatType = false;
     GameObject correctImage;
@@ -42,6 +45,7 @@ public class TestGameManager : MonoBehaviour
     void Start()
     {
         EaqulEffect.SetActive(false);
+        
 
     }
 
@@ -64,7 +68,7 @@ public class TestGameManager : MonoBehaviour
         }
         else { hasThingOnBothScale = false; }
 
-
+        
 
         //if there's something on the weight_scale , check if two side has the same weight value
         if (hasThingOnBothScale == true)
@@ -76,6 +80,7 @@ public class TestGameManager : MonoBehaviour
         else if (!hasThingOnBothScale)
         {
 
+            CheckValue();
             /*correctImage.SetActive(false);
             wrongImage.SetActive(false);*/
         }
@@ -132,6 +137,8 @@ public class TestGameManager : MonoBehaviour
 
             
             EaqulEffect.GetComponent<ParticleSystem>().Stop();
+            record.GetComponentInChildren<RotateRecord>().enabled = false;
+            record.SetActive(false);
 
             /*if (correctImage)
             {
@@ -168,8 +175,22 @@ public class TestGameManager : MonoBehaviour
             EaqulEffect.SetActive(true);
             EaqulEffect.GetComponent<ParticleSystem>().Play();
            
-           
+          
         }
+
+        yield return new WaitForSeconds(2f);
+        if (record) 
+        {
+            record.SetActive(true);
+            //recordApperarEffect.GetComponent<ParticleSystem>().Play();
+            yield return new WaitForSeconds(2f);
+            record.GetComponentInChildren<RotateRecord>().enabled = true;
+            record.GetComponent<AudioSource>().Play();
+            
+        
+        }
+
+
         yield return null;
     }
 
