@@ -26,8 +26,9 @@ public class GrabbingHand : MonoBehaviour
         var secondInput = VRDevice.Device.SecondaryInputDevice;
         //check that button is being held, if so set handClosed to true
         //if (primaryInput.GetButton(VRButton.Trigger) || Input.GetMouseButton(0))
+        //|| secondInput.GetButton(VRButton.Trigger)
         var primaryInput = VRDevice.Device.PrimaryInputDevice;
-        if (primaryInput.GetButton(VRButton.Trigger)|| secondInput.GetButton(VRButton.Trigger))
+        if (primaryInput.GetButton(VRButton.Trigger))
         {
             Debug.Log("Close");
             handClosed = true;
