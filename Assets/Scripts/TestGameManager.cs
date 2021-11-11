@@ -153,8 +153,10 @@ public class TestGameManager : MonoBehaviour
          else if(isEaqual==true && hasThingOnBothScale==true)
         {
             Debug.Log("the weight is equal");
-            StartCoroutine(PlayEqual());
-
+            if (weightsOnPlate.Count == 5)
+            {
+                StartCoroutine(PlayEqual());
+            }
            /* if (wrongImage)
             {
                 wrongImage.SetActive(true);
