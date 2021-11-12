@@ -12,4 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc38003c0e0db6641a4762d4f392de52, type: 3}
   m_Name: PrefabPalette-Default
   m_EditorClassIdentifier: 
-  prefabs: []
+  prefabs:
+  - gameObject: {fileID: 5148429638906996108, guid: a66e85e0548699c42aea5c198b5d07a2,
+      type: 3}
+    settings:
+      m_Strength: 49.8
+      m_RotationRangeMin: {x: 88.04953, y: 18.947357, z: 185.01547}
+      m_RotationRangeMax: {x: 91.39317, y: 61.30037, z: 193.9319}
+      m_ScaleRangeMin: {x: 2.7027864, y: 2.764706, z: 3.0433438}
+      m_ScaleRangeMax: {x: 4.0030966, y: 6.325078, z: 3.6315792}
+      m_UniformScale: {x: 1, y: 2.3389122}
+      m_UniformBool: 1
+      m_XRotationBool: 1
+      m_YRotationBool: 1
+      m_ZRotationBool: 1
+      m_XScaleBool: 0
+      m_YScaleBool: 0
+      m_ZScaleBool: 0
+    name: Grass
