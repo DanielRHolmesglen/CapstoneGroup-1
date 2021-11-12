@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
+
 
 public class ScaleDetect : MonoBehaviour
 {
@@ -8,33 +11,43 @@ public class ScaleDetect : MonoBehaviour
 
    
     public float CurrentTotalWeight = 0;
+    public GameObject CurrentPickedWeight;
+    public TestGameManager TestGameManagerScript;
 
     public List<GameObject> weights = new List<GameObject>();
+    public List<Transform> weightTransforms = new List<Transform>();
+    public List<GameObject> weightsOnThePlate = new List<GameObject>();
+   
 
+   
     
 
-    public bool  hasThingOn = false;
 
-    public Transform SnapPoint;
-    public Transform SnapPoint1;
-    public Transform SnapPoint2;
-    public int snapInt;
 
+    
+    public bool hasThingOn = false;
+    public bool alreadyHasThatType = false;
+   
+
+    public int snapInt = 0;
     public float smoothing = 0.4f;
 
-    
+
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        TestGameManagerScript = TestGameManagerScript.GetComponent<TestGameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        //weightsOnThePlate = TestGameManagerScript.weightsOnPlate;
+       // CurrentPickedWeight = TestGameManagerScript.currentPickedWeight;
 
         if (CurrentTotalWeight == 0)
         {
@@ -44,72 +57,44 @@ public class ScaleDetect : MonoBehaviour
         {
             hasThingOn = true;
         }
+
+
+        //StartCoroutine(HasSameTypeCheck());
+       
+        
+       
+
     }
+
+    
 
 
     //if there's a weight put on the scale
     private void OnCollisionEnter(Collision other)
     {
 
-    
-
-       // if (other.gameObject.GetComponent<Draggable>().isDragging == false)
-        //{
-            AddWeight(other.gameObject); //adding to list
-
-            //move the weight to snpa point
-            if (SnapPoint)
-            {
-                if (snapInt == 1)
-                {
-                   other.gameObject.transform.position = Vector3.Lerp(other.gameObject.transform.position, SnapPoint.position, smoothing);
-                    
-                }
-
-                if (snapInt ==2 )
-                {
-                   other.gameObject.transform.position = Vector3.Lerp(other.gameObject.transform.position, SnapPoint1.position, smoothing);
-                    
-                }
-
-                if (snapInt ==3)
-                {
-                    other.gameObject.transform.position = Vector3.Lerp(other.gameObject.transform.position, SnapPoint2.position, smoothing);
-                    
-                }
-
-            }
+            TestGameManagerScript.currentPickedWeight = other.gameObject;
+            AddWeight(other.gameObject); 
+            SetWeight(other.gameObject);
            
+        
 
-
-            //play effect 
-            if (other.gameObject.GetComponent<ParticleSystem>())
-            {
-                other.gameObject.GetComponent<ParticleSystem>().Play();
-            }
-
-            if (other.gameObject.GetComponent<AudioSource>())
-            {
-                other.gameObject.GetComponent<Weight>().PlaySound();
-            }
-
-            UpdateCurrentTotalWeight();
-
-        //}  
-            
-     
 
     }
+
+
+        
+     
 
 
     //if you remove a weight from current scale
     private void OnCollisionExit(Collision collision)
     {
         
-            RemoveWeight(collision.gameObject); //remove weight from list
+        RemoveWeight(collision.gameObject); //remove weight from list
         collision.gameObject.GetComponent<Weight>().StopPlaySound();
 
-        UpdateCurrentTotalWeight();
+      
         
     }
 
@@ -118,24 +103,25 @@ public class ScaleDetect : MonoBehaviour
     {
         
         weights.Add(thisWeight);
-        if (snapInt < 3)
+        TestGameManagerScript.weightsOnPlate.Add(thisWeight);
+        snapInt += 1;
+        if (snapInt == 8)
         {
-            snapInt += 1;
-        }
-        else
-        {
-            snapInt = 1;
+            snapInt = 0;
         }
 
+
+        UpdateCurrentTotalWeight();
     }
 
 
     void RemoveWeight(GameObject thisWeight)
     {
-
-        weights.Remove(thisWeight);
-        
        
+        weights.Remove(thisWeight);
+        TestGameManagerScript.weightsOnPlate.Remove(thisWeight);
+        UpdateCurrentTotalWeight();
+
     }
 
 
@@ -148,6 +134,59 @@ public class ScaleDetect : MonoBehaviour
             CurrentTotalWeight += weights[i].gameObject.GetComponent<Weight>().weightValue;        }
 
     }
+
+    void SetWeight(GameObject thisWeight) 
+    {
+        thisWeight.transform.position = Vector3.Lerp(thisWeight.transform.position, weightTransforms[snapInt].transform.position, smoothing);
+        thisWeight.transform.rotation = thisWeight.GetComponent<Weight>().StartRotation;
+
+        //play effect 
+        if (thisWeight.GetComponent<ParticleSystem>())
+        {
+            thisWeight.GetComponent<ParticleSystem>().Play();
+        }
+
+        if (thisWeight.GetComponent<AudioSource>())
+        {
+            thisWeight.GetComponent<Weight>().PlaySound();
+        }
+
+    }
+
+
+    /*IEnumerator HasSameTypeCheck() 
+    {
+        //weights.Count
+
+        if (weightsOnThePlate.Count > 1)
+        {
+            for (int i = 0; i < weightsOnThePlate.Count - 1; i++)
+            {
+                if (CurrentPickedWeight)
+                {
+                    if (CurrentPickedWeight.GetComponent<Weight>().type == weightsOnThePlate[i].GetComponent<Weight>().type)
+                    {
+
+                        alreadyHasThatType=true;
+                        CurrentPickedWeight.transform.position = Vector3.Lerp(CurrentPickedWeight.transform.position, CurrentPickedWeight.GetComponent<Weight>().StartPosition, smoothing * 2);
+
+                        CurrentPickedWeight.transform.rotation = CurrentPickedWeight.GetComponent<Weight>().StartRotation;
+                        CurrentPickedWeight = null;
+                        yield return new WaitForSeconds(5);
+                        alreadyHasThatType = false;
+                    }
+                }
+
+            }
+
+        }
+        yield return null;
+    }*/
+
+
+    
+
+   
 
     
 
@@ -163,6 +202,17 @@ public class ScaleDetect : MonoBehaviour
     public float ReturnFinalValue()
     {
         return CurrentTotalWeight;
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        for(int i = 0;  i<weightTransforms.Count;i++) 
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(weightTransforms[i].transform.position, 0.01f);
+        
+        }
     }
 
 
