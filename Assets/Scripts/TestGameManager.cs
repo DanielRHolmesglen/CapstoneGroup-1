@@ -15,10 +15,12 @@ public class TestGameManager : MonoBehaviour
     public GameObject left_Scale;
     public GameObject right_Scale;
     public GameObject EaqulEffect;
+    public GameObject EaqulEffect2;
     public GameObject DialogueText;
     public GameObject currentPickedWeight;
     public GameObject record;
     public GameObject recordApperarEffect;
+    public GameObject narratives;
 
     public List<GameObject> weightsOnPlate = new List<GameObject>();
     public bool alreadyHasThatType = false;
@@ -45,7 +47,9 @@ public class TestGameManager : MonoBehaviour
     void Start()
     {
         EaqulEffect.SetActive(false);
-        
+        EaqulEffect2.SetActive(false);
+
+        Invoke("DisableNarrative", 15f);
 
     }
 
@@ -87,8 +91,6 @@ public class TestGameManager : MonoBehaviour
 
 
        
-
-        //left_Scale.GetComponent<ScaleDetect>().alreadyHasThatType == true || right_Scale.GetComponent<ScaleDetect>().alreadyHasThatType == true
         if (alreadyHasThatType == true ) 
         {
             if (DialogueText)
@@ -106,7 +108,7 @@ public class TestGameManager : MonoBehaviour
         }
 
 
-        //weightsOnPlate = left_Scale.GetComponent<ScaleDetect>().weights.Union(right_Scale.GetComponent<ScaleDetect>().weights).ToList();
+       
        
 
         StartCoroutine(HasSameTypeCheck());
@@ -137,9 +139,11 @@ public class TestGameManager : MonoBehaviour
 
             
             EaqulEffect.GetComponent<ParticleSystem>().Stop();
+            EaqulEffect2.GetComponent<ParticleSystem>().Stop();
             record.GetComponentInChildren<RotateRecord>().enabled = false;
             record.SetActive(false);
-
+            EaqulEffect.GetComponent<AudioSource>().volume = 0;
+            EaqulEffect2.GetComponent<AudioSource>().volume = 0;
             /*if (correctImage)
             {
                 correctImage.SetActive(true);
@@ -176,8 +180,17 @@ public class TestGameManager : MonoBehaviour
         {
             EaqulEffect.SetActive(true);
             EaqulEffect.GetComponent<ParticleSystem>().Play();
+            EaqulEffect.GetComponent<AudioSource>().volume = 0.15f;
            
           
+        }
+        if (EaqulEffect2)
+        {
+            EaqulEffect2.SetActive(true);
+            EaqulEffect2.GetComponent<ParticleSystem>().Play();
+            EaqulEffect2.GetComponent<AudioSource>().volume = 0.15f;
+
+
         }
 
         yield return new WaitForSeconds(2f);
@@ -227,7 +240,11 @@ public class TestGameManager : MonoBehaviour
     }
 
 
-
+    public void DisableNarrative() 
+    {
+        narratives.SetActive(false);
+    
+    }
 
 
 
