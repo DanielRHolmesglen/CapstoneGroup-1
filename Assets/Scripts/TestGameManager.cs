@@ -15,15 +15,22 @@ public class TestGameManager : MonoBehaviour
     public GameObject left_Scale;
     public GameObject right_Scale;
     public GameObject EaqulEffect;
+    public GameObject EaqulEffect2;
     public GameObject DialogueText;
     public GameObject currentPickedWeight;
     public GameObject record;
     public GameObject recordApperarEffect;
+    public GameObject narratives;
+
+
 
     public List<GameObject> weightsOnPlate = new List<GameObject>();
     public bool alreadyHasThatType = false;
-    GameObject correctImage;
-     GameObject wrongImage;
+    public bool recordShouldAppear = false;
+    public bool eaqualShouldPlayer = false;
+    public bool sameTypeAlert = false;
+
+    public Transform PortalPosition;
 
 
     public float smoothing = 0.4f;
@@ -45,7 +52,9 @@ public class TestGameManager : MonoBehaviour
     void Start()
     {
         EaqulEffect.SetActive(false);
-        
+        EaqulEffect2.SetActive(false);
+
+        Invoke("DisableNarrative", 15f);
 
     }
 
@@ -59,14 +68,15 @@ public class TestGameManager : MonoBehaviour
         leftScaleWeight = left_Scale.GetComponent<ScaleDetect>().ReturnFinalValue();
 
         //to check if there's anything put on the weight_scale handle(which has the picked weight)
-
-
         if (left_Scale.GetComponent<ScaleDetect>().hasThingOn == true && right_Scale.GetComponent<ScaleDetect>().hasThingOn == true)
         {
             hasThingOnBothScale = right_Scale.GetComponent<ScaleDetect>().ReturnBool();
             
         }
         else { hasThingOnBothScale = false; }
+
+        
+        
 
         
 
@@ -76,20 +86,77 @@ public class TestGameManager : MonoBehaviour
             CheckValue();
         }
 
-        //if nothing on the weight_scale , make sure those image not showing up
         else if (!hasThingOnBothScale)
         {
 
             CheckValue();
-            /*correctImage.SetActive(false);
-            wrongImage.SetActive(false);*/
+           
         }
 
 
        
 
-        //left_Scale.GetComponent<ScaleDetect>().alreadyHasThatType == true || right_Scale.GetComponent<ScaleDetect>().alreadyHasThatType == true
-        if (alreadyHasThatType == true ) 
+
+        //check if the eaqual effect should be player
+        if (eaqualShouldPlayer == true)
+        {
+            if (EaqulEffect)
+            {
+                EaqulEffect.SetActive(true);
+                EaqulEffect.GetComponent<ParticleSystem>().Play();
+                EaqulEffect.GetComponent<AudioSource>().volume = 0.15f;
+
+
+
+            }
+            if (EaqulEffect2)
+            {
+                EaqulEffect2.SetActive(true);
+                EaqulEffect2.GetComponent<ParticleSystem>().Play();
+                EaqulEffect2.GetComponent<AudioSource>().volume = 0.15f;
+
+
+
+            }
+
+        }
+        else if (eaqualShouldPlayer == false)
+        {
+            EaqulEffect.GetComponent<ParticleSystem>().Stop();
+            EaqulEffect2.GetComponent<ParticleSystem>().Stop();
+            EaqulEffect.GetComponent<AudioSource>().volume = 0;
+            EaqulEffect2.GetComponent<AudioSource>().volume = 0;
+
+            //record.GetComponentInChildren<RotateRecord>().enabled = false;
+            //record.SetActive(false);
+            recordShouldAppear = false;
+
+        }
+
+
+        //check if the record should appear
+        if (recordShouldAppear == true)
+        {
+            record.SetActive(true);
+            record.GetComponentInChildren<RotateRecord>().enabled = true;
+            record.GetComponent<AudioSource>().Play();
+
+        }
+        else if(recordShouldAppear == false)
+        {
+            record.GetComponentInChildren<RotateRecord>().enabled = false;
+            record.SetActive(false);
+        }
+
+       
+
+
+
+       //check if there has same type weight on the scale
+        StartCoroutine(HasSameTypeCheck());
+
+        //if there has the same type weight , show the text
+        if (alreadyHasThatType == true)
         {
             if (DialogueText)
             {
@@ -97,7 +164,7 @@ public class TestGameManager : MonoBehaviour
             }
         }
 
-        else 
+        else
         {
             if (DialogueText)
             {
@@ -106,10 +173,6 @@ public class TestGameManager : MonoBehaviour
         }
 
 
-        //weightsOnPlate = left_Scale.GetComponent<ScaleDetect>().weights.Union(right_Scale.GetComponent<ScaleDetect>().weights).ToList();
-       
-
-        StartCoroutine(HasSameTypeCheck());
 
         if (leftScaleWeight == rightScaleWeight && hasThingOnBothScale == true && alreadyHasThatType == false)
         {
@@ -121,30 +184,25 @@ public class TestGameManager : MonoBehaviour
             isEaqual = false;
         }
 
+
+       
+
     } 
 
 
     
+
+   
     public void CheckValue()
 
     {
-        
+       
 
         if( isEaqual== false || hasThingOnBothScale == false)
         {
-
+           
             Debug.Log("the weight is not eaqual");
-
-            
-            EaqulEffect.GetComponent<ParticleSystem>().Stop();
-            record.GetComponentInChildren<RotateRecord>().enabled = false;
-            record.SetActive(false);
-
-            /*if (correctImage)
-            {
-                correctImage.SetActive(true);
-                wrongImage.SetActive(false);
-            }*/
+            eaqualShouldPlayer = false;
 
         }
 
@@ -152,14 +210,13 @@ public class TestGameManager : MonoBehaviour
 
          else if(isEaqual==true && hasThingOnBothScale==true)
         {
+            
             Debug.Log("the weight is equal");
-            StartCoroutine(PlayEqual());
-
-           /* if (wrongImage)
+            if (weightsOnPlate.Count == 5)
             {
-                wrongImage.SetActive(true);
-                correctImage.SetActive(false);
-            }*/
+                StartCoroutine(PlayEqual());
+            }
+         
 
         }
 
@@ -169,30 +226,26 @@ public class TestGameManager : MonoBehaviour
 
     IEnumerator PlayEqual() 
     {
+       
         yield return new WaitForSeconds(1f);
-        if (EaqulEffect)
-        {
-            EaqulEffect.SetActive(true);
-            EaqulEffect.GetComponent<ParticleSystem>().Play();
-           
+       
+        eaqualShouldPlayer = true;
           
-        }
-
         yield return new WaitForSeconds(2f);
         if (record) 
         {
-            record.SetActive(true);
-            //recordApperarEffect.GetComponent<ParticleSystem>().Play();
-            yield return new WaitForSeconds(2f);
-            record.GetComponentInChildren<RotateRecord>().enabled = true;
-            record.GetComponent<AudioSource>().Play();
-            
+           
+            recordShouldAppear = true;
         
         }
 
 
         yield return null;
     }
+
+
+
+  
 
 
     IEnumerator HasSameTypeCheck()
@@ -209,12 +262,13 @@ public class TestGameManager : MonoBehaviour
                     {
                         
                         alreadyHasThatType = true;
-                        currentPickedWeight.transform.position = Vector3.Lerp(currentPickedWeight.transform.position, currentPickedWeight.GetComponent<Weight>().StartPosition, smoothing * 2);
-
+                        //currentPickedWeight.transform.position = Vector3.Lerp(currentPickedWeight.transform.position, currentPickedWeight.GetComponent<Weight>().StartPosition, smoothing * 2);
+                        currentPickedWeight.transform.position = PortalPosition.position;
                         currentPickedWeight.transform.rotation = currentPickedWeight.GetComponent<Weight>().StartRotation;
                         currentPickedWeight = null;
                         yield return new WaitForSeconds(5);
                         alreadyHasThatType = false;
+                       
                     }
                 }
 
@@ -224,6 +278,12 @@ public class TestGameManager : MonoBehaviour
         yield return null;
     }
 
+
+    public void DisableNarrative() 
+    {
+        narratives.SetActive(false);
+    
+    }
 
 
 
