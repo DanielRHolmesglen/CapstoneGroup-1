@@ -134,7 +134,7 @@ public class TestGameManager : MonoBehaviour
 
         if( isEaqual== false || hasThingOnBothScale == false)
         {
-
+           
             Debug.Log("the weight is not eaqual");
 
             
@@ -142,14 +142,11 @@ public class TestGameManager : MonoBehaviour
             EaqulEffect2.GetComponent<ParticleSystem>().Stop();
             record.GetComponentInChildren<RotateRecord>().enabled = false;
             record.SetActive(false);
-            EaqulEffect.GetComponent<AudioSource>().volume = 0;
-            EaqulEffect2.GetComponent<AudioSource>().volume = 0;
-            /*if (correctImage)
-            {
-                correctImage.SetActive(true);
-                wrongImage.SetActive(false);
-            }*/
-
+            
+                EaqulEffect.GetComponent<AudioSource>().volume = 0;
+                EaqulEffect2.GetComponent<AudioSource>().volume = 0;
+            
+        
         }
 
         
@@ -161,11 +158,7 @@ public class TestGameManager : MonoBehaviour
             {
                 StartCoroutine(PlayEqual());
             }
-           /* if (wrongImage)
-            {
-                wrongImage.SetActive(true);
-                correctImage.SetActive(false);
-            }*/
+         
 
         }
 
@@ -175,14 +168,16 @@ public class TestGameManager : MonoBehaviour
 
     IEnumerator PlayEqual() 
     {
+       
         yield return new WaitForSeconds(1f);
         if (EaqulEffect)
         {
             EaqulEffect.SetActive(true);
             EaqulEffect.GetComponent<ParticleSystem>().Play();
             EaqulEffect.GetComponent<AudioSource>().volume = 0.15f;
-           
           
+
+
         }
         if (EaqulEffect2)
         {
@@ -190,9 +185,11 @@ public class TestGameManager : MonoBehaviour
             EaqulEffect2.GetComponent<ParticleSystem>().Play();
             EaqulEffect2.GetComponent<AudioSource>().volume = 0.15f;
 
-
+          
+               
+            
         }
-
+          
         yield return new WaitForSeconds(2f);
         if (record) 
         {

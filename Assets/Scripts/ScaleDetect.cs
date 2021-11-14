@@ -72,10 +72,12 @@ public class ScaleDetect : MonoBehaviour
     //if there's a weight put on the scale
     private void OnCollisionEnter(Collision other)
     {
-
+        if (other.transform.GetComponent<Draggable>().isDragging == false)
+        {
             TestGameManagerScript.currentPickedWeight = other.gameObject;
-            AddWeight(other.gameObject); 
+            AddWeight(other.gameObject);
             SetWeight(other.gameObject);
+        }
            
         
 
