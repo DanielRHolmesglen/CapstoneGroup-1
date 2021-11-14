@@ -79,6 +79,8 @@ public class ScaleDetect : MonoBehaviour
             SetWeight(other.gameObject);
         }
            
+
+      
         
 
 

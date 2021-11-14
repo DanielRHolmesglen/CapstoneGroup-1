@@ -26,6 +26,13 @@ public class Weight : MonoBehaviour
         }
     }
 
+
+   
+
+
+
+
+
     public float GetValue()
     {
         return weightValue;
@@ -57,6 +64,10 @@ public class Weight : MonoBehaviour
             transform.position = StartPosition;
             transform.rotation = StartRotation;
         }
+
+
+     
+
     }
 
 

@@ -21,11 +21,30 @@ public class PortalPoint : MonoBehaviour
 
   
 
-    private void OnTriggerEnter(Collider other)
+  /*  private void OnTriggerEnter(Collider other)
     {
         if (other.transform.GetComponent<Weight>())
         {
             other.transform.position = PortalLocation.position;
+
+        }
+    }
+*/
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.GetComponent<Weight>())
+        {
+            collision.transform.position = PortalLocation.position;
+
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.transform.GetComponent<Weight>())
+        {
+            collision.transform.position = PortalLocation.position;
 
         }
     }
