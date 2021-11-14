@@ -29,7 +29,8 @@ public class TestGameManager : MonoBehaviour
     public bool recordShouldAppear = false;
     public bool eaqualShouldPlayer = false;
     public bool sameTypeAlert = false;
-    
+
+    public Transform PortalPosition;
 
 
     public float smoothing = 0.4f;
@@ -201,16 +202,6 @@ public class TestGameManager : MonoBehaviour
         {
            
             Debug.Log("the weight is not eaqual");
-
-
-            /*   EaqulEffect.GetComponent<ParticleSystem>().Stop();
-               EaqulEffect2.GetComponent<ParticleSystem>().Stop();
-               EaqulEffect.GetComponent<AudioSource>().volume = 0;
-               EaqulEffect2.GetComponent<AudioSource>().volume = 0;
-
-               //record.GetComponentInChildren<RotateRecord>().enabled = false;
-               //record.SetActive(false);
-               recordShouldAppear = false;*/
             eaqualShouldPlayer = false;
 
         }
@@ -237,33 +228,13 @@ public class TestGameManager : MonoBehaviour
     {
        
         yield return new WaitForSeconds(1f);
-        /*if (EaqulEffect)
-        {
-            EaqulEffect.SetActive(true);
-            EaqulEffect.GetComponent<ParticleSystem>().Play();
-            EaqulEffect.GetComponent<AudioSource>().volume = 0.15f;
-          
-        
-
-        }
-        if (EaqulEffect2)
-        {
-            EaqulEffect2.SetActive(true);
-            EaqulEffect2.GetComponent<ParticleSystem>().Play();
-            EaqulEffect2.GetComponent<AudioSource>().volume = 0.15f;
-
-         
-            
-        }*/
+       
         eaqualShouldPlayer = true;
           
         yield return new WaitForSeconds(2f);
         if (record) 
         {
-            /* record.SetActive(true);
-             yield return new WaitForSeconds(2f);
-             record.GetComponentInChildren<RotateRecord>().enabled = true;
-             record.GetComponent<AudioSource>().Play();*/
+           
             recordShouldAppear = true;
         
         }
@@ -291,13 +262,13 @@ public class TestGameManager : MonoBehaviour
                     {
                         
                         alreadyHasThatType = true;
-                        currentPickedWeight.transform.position = Vector3.Lerp(currentPickedWeight.transform.position, currentPickedWeight.GetComponent<Weight>().StartPosition, smoothing * 2);
-
+                        //currentPickedWeight.transform.position = Vector3.Lerp(currentPickedWeight.transform.position, currentPickedWeight.GetComponent<Weight>().StartPosition, smoothing * 2);
+                        currentPickedWeight.transform.position = PortalPosition.position;
                         currentPickedWeight.transform.rotation = currentPickedWeight.GetComponent<Weight>().StartRotation;
                         currentPickedWeight = null;
                         yield return new WaitForSeconds(5);
                         alreadyHasThatType = false;
-                        //CheckValue();
+                       
                     }
                 }
 
