@@ -18,6 +18,7 @@ public class TestGameManager : MonoBehaviour
     public GameObject EaqulEffect2;
     public GameObject DialogueText;
     public GameObject currentPickedWeight;
+    public GameObject recordPlayer;
     public GameObject record;
     public GameObject recordApperarEffect;
     public GameObject narratives;
@@ -138,13 +139,13 @@ public class TestGameManager : MonoBehaviour
         if (recordShouldAppear == true)
         {
             record.SetActive(true);
-            record.GetComponentInChildren<RotateRecord>().enabled = true;
-            record.GetComponent<AudioSource>().Play();
+            recordPlayer.GetComponentInChildren<RotateRecord>().enabled = true;
+            recordPlayer.GetComponent<AudioSource>().Play();
 
         }
         else if(recordShouldAppear == false)
         {
-            record.GetComponentInChildren<RotateRecord>().enabled = false;
+            recordPlayer.GetComponentInChildren<RotateRecord>().enabled = false;
             record.SetActive(false);
         }
 
