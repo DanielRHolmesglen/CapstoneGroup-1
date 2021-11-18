@@ -14,10 +14,17 @@ public class Weight : MonoBehaviour
     public Quaternion StartRotation;
     public int type;
 
+
+
+
+  
+
     private void Start()
     {
+        
         StartPosition = transform.position;
         StartRotation = transform.rotation;
+        
 
         if (gameObject.GetComponent<AudioSource>())
         {
