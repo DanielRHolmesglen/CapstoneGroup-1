@@ -14,6 +14,7 @@ public class ScaleDetect : MonoBehaviour
     public GameObject CurrentPickedWeight;
     public TestGameManager TestGameManagerScript;
 
+
     public List<GameObject> weights = new List<GameObject>();
     public List<Transform> weightTransforms = new List<Transform>();
     public List<GameObject> weightsOnThePlate = new List<GameObject>();
@@ -46,8 +47,7 @@ public class ScaleDetect : MonoBehaviour
     void Update()
     {
 
-        //weightsOnThePlate = TestGameManagerScript.weightsOnPlate;
-       // CurrentPickedWeight = TestGameManagerScript.currentPickedWeight;
+     
 
         if (CurrentTotalWeight == 0)
         {
@@ -72,11 +72,15 @@ public class ScaleDetect : MonoBehaviour
     //if there's a weight put on the scale
     private void OnCollisionEnter(Collision other)
     {
-
+        if (other.transform.GetComponent<Draggable>().isDragging == false)
+        {
             TestGameManagerScript.currentPickedWeight = other.gameObject;
-            AddWeight(other.gameObject); 
+            AddWeight(other.gameObject);
             SetWeight(other.gameObject);
+        }
            
+
+      
         
 
 
@@ -139,6 +143,8 @@ public class ScaleDetect : MonoBehaviour
     {
         thisWeight.transform.position = Vector3.Lerp(thisWeight.transform.position, weightTransforms[snapInt].transform.position, smoothing);
         thisWeight.transform.rotation = thisWeight.GetComponent<Weight>().StartRotation;
+      
+
 
         //play effect 
         if (thisWeight.GetComponent<ParticleSystem>())
@@ -154,34 +160,7 @@ public class ScaleDetect : MonoBehaviour
     }
 
 
-    /*IEnumerator HasSameTypeCheck() 
-    {
-        //weights.Count
-
-        if (weightsOnThePlate.Count > 1)
-        {
-            for (int i = 0; i < weightsOnThePlate.Count - 1; i++)
-            {
-                if (CurrentPickedWeight)
-                {
-                    if (CurrentPickedWeight.GetComponent<Weight>().type == weightsOnThePlate[i].GetComponent<Weight>().type)
-                    {
-
-                        alreadyHasThatType=true;
-                        CurrentPickedWeight.transform.position = Vector3.Lerp(CurrentPickedWeight.transform.position, CurrentPickedWeight.GetComponent<Weight>().StartPosition, smoothing * 2);
-
-                        CurrentPickedWeight.transform.rotation = CurrentPickedWeight.GetComponent<Weight>().StartRotation;
-                        CurrentPickedWeight = null;
-                        yield return new WaitForSeconds(5);
-                        alreadyHasThatType = false;
-                    }
-                }
-
-            }
-
-        }
-        yield return null;
-    }*/
+  
 
 
     
