@@ -13,13 +13,14 @@ public class ScaleDetect : MonoBehaviour
     public float CurrentTotalWeight = 0;
     public GameObject CurrentPickedWeight;
     public TestGameManager TestGameManagerScript;
-    [SerializeField] private ScaleTilter scaleTilterScript;
+    public GameObject ScaleTilter;
+
 
     public List<GameObject> weights = new List<GameObject>();
     public List<Transform> weightTransforms = new List<Transform>();
     public List<GameObject> weightsOnThePlate = new List<GameObject>();
+   
 
-    
    
     
 
@@ -115,7 +116,7 @@ public class ScaleDetect : MonoBehaviour
             snapInt = 0;
         }
 
-        scaleTilterScript.CalculateWeights();
+
         UpdateCurrentTotalWeight();
     }
 
@@ -126,7 +127,7 @@ public class ScaleDetect : MonoBehaviour
         weights.Remove(thisWeight);
         TestGameManagerScript.weightsOnPlate.Remove(thisWeight);
         UpdateCurrentTotalWeight();
-        scaleTilterScript.CalculateWeights();
+
     }
 
 
@@ -136,7 +137,9 @@ public class ScaleDetect : MonoBehaviour
         for (int i = 0; i < weights.Count; i++)
         {
 
-            CurrentTotalWeight += weights[i].gameObject.GetComponent<Weight>().weightValue;        }
+            CurrentTotalWeight += weights[i].gameObject.GetComponent<Weight>().weightValue;        
+        }
+
 
     }
 
