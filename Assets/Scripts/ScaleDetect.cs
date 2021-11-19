@@ -9,15 +9,18 @@ public class ScaleDetect : MonoBehaviour
 {
     //PS: this script need to be attached to each side of the scale handle
 
-   
+   // current total weight value
     public float CurrentTotalWeight = 0;
     public GameObject CurrentPickedWeight;
     public TestGameManager TestGameManagerScript;
+    public GameObject ScaleTilter;
 
-
+    //a list of current weights
     public List<GameObject> weights = new List<GameObject>();
+
+    //a list of the snap point transform
     public List<Transform> weightTransforms = new List<Transform>();
-    public List<GameObject> weightsOnThePlate = new List<GameObject>();
+    
    
 
    
@@ -25,11 +28,10 @@ public class ScaleDetect : MonoBehaviour
 
 
 
-    
+    //to check if there has weight on this plate
     public bool hasThingOn = false;
-    public bool alreadyHasThatType = false;
    
-
+    //snap point muber
     public int snapInt = 0;
     public float smoothing = 0.4f;
 
@@ -41,6 +43,7 @@ public class ScaleDetect : MonoBehaviour
     void Start()
     {
         TestGameManagerScript = TestGameManagerScript.GetComponent<TestGameManager>();
+        
     }
 
     // Update is called once per frame
@@ -79,9 +82,6 @@ public class ScaleDetect : MonoBehaviour
             SetWeight(other.gameObject);
         }
            
-
-      
-        
 
 
     }
@@ -135,7 +135,9 @@ public class ScaleDetect : MonoBehaviour
         for (int i = 0; i < weights.Count; i++)
         {
 
-            CurrentTotalWeight += weights[i].gameObject.GetComponent<Weight>().weightValue;        }
+            CurrentTotalWeight += weights[i].gameObject.GetComponent<Weight>().weightValue;        
+        }
+
 
     }
 
