@@ -47,7 +47,8 @@ public class Weight : MonoBehaviour
 
     public void PlaySound()
     {
-        soundEffect.volume = 1;
+        StartCoroutine(FadeAudioSource.StartFade(soundEffect, 1f, 1f));
+        //soundEffect.volume = 1;
         if (visualEffect)
         {
             visualEffect.GetComponent<ParticleSystem>().Play();
@@ -55,7 +56,8 @@ public class Weight : MonoBehaviour
     }
     public void StopPlaySound()
     {
-        soundEffect.volume = 0;
+        StartCoroutine(FadeAudioSource.StartFade(soundEffect, 1f, 0f));
+        //soundEffect.volume = 0;
         if (visualEffect)
         {
             visualEffect.GetComponent<ParticleSystem>().Stop();

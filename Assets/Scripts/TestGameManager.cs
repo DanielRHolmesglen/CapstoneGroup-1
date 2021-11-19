@@ -16,7 +16,7 @@ public class TestGameManager : MonoBehaviour
     public GameObject right_Scale;
     public GameObject EaqulEffect;
     public GameObject EaqulEffect2;
-    public GameObject DialogueText;
+    //public GameObject DialogueText;
     public GameObject currentPickedWeight;
     public GameObject recordPlayer;
     public GameObject record;
@@ -105,19 +105,16 @@ public class TestGameManager : MonoBehaviour
             {
                 EaqulEffect.SetActive(true);
                 EaqulEffect.GetComponent<ParticleSystem>().Play();
-                EaqulEffect.GetComponent<AudioSource>().volume = 0.15f;
+                StartCoroutine(FadeAudioSource.StartFade(EaqulEffect2.GetComponent<AudioSource>(), 2f, 0.2f));
 
-
-
+                
             }
             if (EaqulEffect2)
             {
                 EaqulEffect2.SetActive(true);
                 EaqulEffect2.GetComponent<ParticleSystem>().Play();
-                EaqulEffect2.GetComponent<AudioSource>().volume = 0.15f;
-
-
-
+                StartCoroutine(FadeAudioSource.StartFade(EaqulEffect2.GetComponent<AudioSource>(), 2f, 0.2f));
+                
             }
 
         }
@@ -125,12 +122,13 @@ public class TestGameManager : MonoBehaviour
         {
             EaqulEffect.GetComponent<ParticleSystem>().Stop();
             EaqulEffect2.GetComponent<ParticleSystem>().Stop();
-            EaqulEffect.GetComponent<AudioSource>().volume = 0;
-            EaqulEffect2.GetComponent<AudioSource>().volume = 0;
+            StartCoroutine(FadeAudioSource.StartFade(EaqulEffect.GetComponent<AudioSource>(), 2f, 0f));
+            StartCoroutine(FadeAudioSource.StartFade(EaqulEffect2.GetComponent<AudioSource>(), 2f, 0f));
 
             //record.GetComponentInChildren<RotateRecord>().enabled = false;
             //record.SetActive(false);
             recordShouldAppear = false;
+            
 
         }
 
@@ -140,13 +138,16 @@ public class TestGameManager : MonoBehaviour
         {
             record.SetActive(true);
             recordPlayer.GetComponentInChildren<RotateRecord>().enabled = true;
-            recordPlayer.GetComponent<AudioSource>().Play();
+            //recordPlayer.GetComponent<AudioSource>().Play();
+            StartCoroutine(FadeAudioSource.StartFade(recordPlayer.GetComponent<AudioSource>(), 0.6f, 0.6f));
+
 
         }
         else if(recordShouldAppear == false)
         {
             recordPlayer.GetComponentInChildren<RotateRecord>().enabled = false;
             record.SetActive(false);
+            StartCoroutine(FadeAudioSource.StartFade(recordPlayer.GetComponent<AudioSource>(), 0.6f, 0f));
         }
 
        
@@ -157,7 +158,7 @@ public class TestGameManager : MonoBehaviour
         StartCoroutine(HasSameTypeCheck());
 
         //if there has the same type weight , show the text
-        if (alreadyHasThatType == true)
+        /*if (alreadyHasThatType == true)
         {
             if (DialogueText)
             {
@@ -171,7 +172,7 @@ public class TestGameManager : MonoBehaviour
             {
                 DialogueText.SetActive(false);
             }
-        }
+        }*/
 
 
 
@@ -264,8 +265,11 @@ public class TestGameManager : MonoBehaviour
                         
                         alreadyHasThatType = true;
                         //currentPickedWeight.transform.position = Vector3.Lerp(currentPickedWeight.transform.position, currentPickedWeight.GetComponent<Weight>().StartPosition, smoothing * 2);
-                        currentPickedWeight.transform.position = PortalPosition.position;
-                        currentPickedWeight.transform.rotation = currentPickedWeight.GetComponent<Weight>().StartRotation;
+                       /* currentPickedWeight.transform.position = PortalPosition.position;
+                        currentPickedWeight.transform.rotation = currentPickedWeight.GetComponent<Weight>().StartRotation;*/
+                       weightsOnPlate[i].transform.position = PortalPosition.position;
+                        weightsOnPlate[i].transform.rotation = weightsOnPlate[i].GetComponent<Weight>().StartRotation;
+
                         currentPickedWeight = null;
                         yield return new WaitForSeconds(5);
                         alreadyHasThatType = false;
