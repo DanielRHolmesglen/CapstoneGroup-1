@@ -25,7 +25,7 @@ public class Weight : MonoBehaviour
         StartPosition = transform.position;
         StartRotation = transform.rotation;
         
-
+        //make sure sound volume all set to 0 
         if (gameObject.GetComponent<AudioSource>())
         {
             soundEffect = gameObject.GetComponent<AudioSource>();
@@ -39,12 +39,13 @@ public class Weight : MonoBehaviour
 
 
 
-
+    //other script can call this function to get this weight's value
     public float GetValue()
     {
         return weightValue;
     }
 
+    //this function will be called within game manager,sound and visual effect will be triggered
     public void PlaySound()
     {
         StartCoroutine(FadeAudioSource.StartFade(soundEffect, 1f, 1f));
@@ -54,6 +55,7 @@ public class Weight : MonoBehaviour
             visualEffect.GetComponent<ParticleSystem>().Play();
         }
     }
+    //this function will be called within game manager,sound and visual effect will be triggered
     public void StopPlaySound()
     {
         StartCoroutine(FadeAudioSource.StartFade(soundEffect, 1f, 0f));
@@ -65,7 +67,7 @@ public class Weight : MonoBehaviour
     }
 
 
-
+    //if the weight collider with floor or anything has a floorTag scirpt , the weight will transform to its' original location
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.GetComponent<FloorTag>())
