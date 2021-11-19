@@ -10,14 +10,15 @@ public class ScaleTilter : MonoBehaviour
     //This line is added by SiTe ,it's mainly used to reference the GameManager
     public GameObject GameManager;
 
-    bool scaleIsBalanced = false;
+    public bool scaleIsBalanced = false;
     
     public float leftPlateValue;
     public float rightPlateValue;
-    // below weights would take info from weight prefabs or just left here.
+    /* 
     private float weightLarge = 6f;
     private float weightMedium = 3f;
     private float weightSmall = 2f;
+    */
     [SerializeField] private float tiltSpeed = 1f;
 
     private Quaternion startTiltAngle = Quaternion.Euler(0, 0, 10);
@@ -41,11 +42,12 @@ public class ScaleTilter : MonoBehaviour
     void Update() 
     {
         //these two lines was added by SiTe , mainly used to get the value of two plates from GameManager 
-        leftPlateValue = GameManager.GetComponent<TestGameManager>().leftScaleWeight;
-        rightPlateValue = GameManager.GetComponent<TestGameManager>().rightScaleWeight;
+        //leftPlateValue = GameManager.GetComponent<TestGameManager>().leftScaleWeight;
+        //rightPlateValue = GameManager.GetComponent<TestGameManager>().rightScaleWeight;
 
-        WeightAmountUpdated();
+        //WeightAmountUpdated();
     }
+
     public void CalculateWeights()
     {
         if (leftPlateValue > rightPlateValue)
@@ -78,7 +80,7 @@ public class ScaleTilter : MonoBehaviour
         CalculateWeights();
     }
     
-    #region WeightInputsForDebugging 
+    #region Manual Weight Inputs For Debugging 
     /*
     // this will all be set by putting the weights on the plates eventually
     public void LargeWeightAdded() 
