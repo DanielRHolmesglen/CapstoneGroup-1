@@ -14,6 +14,7 @@ public class ScaleTilter : MonoBehaviour
     
     public float leftPlateValue;
     public float rightPlateValue;
+   
     // below weights would take info from weight prefabs or just left here.
     private float weightLarge = 6f;
     private float weightMedium = 3f;
@@ -35,6 +36,8 @@ public class ScaleTilter : MonoBehaviour
     {
         //not working
         transform.rotation = Quaternion.Lerp(balanced,startTiltAngle, Time.deltaTime * tiltSpeed);
+        leftPlateValue = GameManager.GetComponent<TestGameManager>().leftScaleWeight;
+        rightPlateValue = GameManager.GetComponent<TestGameManager>().rightScaleWeight;
     }
 
     

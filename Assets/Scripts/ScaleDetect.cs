@@ -13,6 +13,7 @@ public class ScaleDetect : MonoBehaviour
     public float CurrentTotalWeight = 0;
     public GameObject CurrentPickedWeight;
     public TestGameManager TestGameManagerScript;
+    public GameObject ScaleTilter;
 
 
     public List<GameObject> weights = new List<GameObject>();
@@ -41,6 +42,7 @@ public class ScaleDetect : MonoBehaviour
     void Start()
     {
         TestGameManagerScript = TestGameManagerScript.GetComponent<TestGameManager>();
+        
     }
 
     // Update is called once per frame
@@ -135,7 +137,9 @@ public class ScaleDetect : MonoBehaviour
         for (int i = 0; i < weights.Count; i++)
         {
 
-            CurrentTotalWeight += weights[i].gameObject.GetComponent<Weight>().weightValue;        }
+            CurrentTotalWeight += weights[i].gameObject.GetComponent<Weight>().weightValue;        
+        }
+
 
     }
 

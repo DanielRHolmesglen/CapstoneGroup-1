@@ -54,7 +54,7 @@ public class TestGameManager : MonoBehaviour
     {
         EaqulEffect.SetActive(false);
         EaqulEffect2.SetActive(false);
-
+        
         Invoke("DisableNarrative", 15f);
 
     }
@@ -157,22 +157,7 @@ public class TestGameManager : MonoBehaviour
        //check if there has same type weight on the scale
         StartCoroutine(HasSameTypeCheck());
 
-        //if there has the same type weight , show the text
-        /*if (alreadyHasThatType == true)
-        {
-            if (DialogueText)
-            {
-                DialogueText.SetActive(true);
-            }
-        }
-
-        else
-        {
-            if (DialogueText)
-            {
-                DialogueText.SetActive(false);
-            }
-        }*/
+       
 
 
 
