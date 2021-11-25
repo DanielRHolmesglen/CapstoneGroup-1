@@ -6,55 +6,66 @@ using System.Linq;
 public class TestGameManager : MonoBehaviour
 {
     //ps: this script need to be attached to an empty game object(a game manager)
+    //things need to be manually set up in inspector
 
-
-
-    //things need to manually set in inspector
-
-   
+    // a reference of the left scale plate
     public GameObject left_Scale;
+    // a reference of the right scale plate
     public GameObject right_Scale;
+    // raining particle effects
     public GameObject EaqulEffect;
     public GameObject EaqulEffect2;
-    //public GameObject DialogueText;
+   
+    // a reference of the curret weight that are being picked up
     public GameObject currentPickedWeight;
+    //a reference to the record base
     public GameObject recordPlayer;
+    // a reference to the record
     public GameObject record;
+    //a reference to the record's particle effect
     public GameObject recordApperarEffect;
+    //a reference to the panel which display narratived at the start
     public GameObject narratives;
 
 
-
+    // a list to store all the weights that are currently on the plate
     public List<GameObject> weightsOnPlate = new List<GameObject>();
+    // to check if the weights on the plate same as the current picked one
     public bool alreadyHasThatType = false;
+    // to check if the record should show up
     public bool recordShouldAppear = false;
-    public bool eaqualShouldPlayer = false;
-    public bool sameTypeAlert = false;
-
+    // to check if related FX should be triggered 
+    public bool eaqualFXShouldPlay = false;
+    
+    //a reference of the portal point that the old same type weight will be transformed to
     public Transform PortalPosition;
 
 
     public float smoothing = 0.4f;
 
 
-    //things can ignored in inspector
 
 
+    //things don't need to be manually set up in inspector as it will be assigned with code
+
+    //the current total value of the right scale plate
     public float rightScaleWeight;
+    //the current total value of the left scale plate
     public float leftScaleWeight;
 
-  
+    // to check if two sides value are eaqual
     public bool isEaqual = false;
 
-    //check if there anything in weight_scale
+    //check if there anything in both lef and right side of the scale plates
     public bool hasThingOnBothScale = false;
 
     
     void Start()
     {
+        // make sure raining particle effect turned off
         EaqulEffect.SetActive(false);
         EaqulEffect2.SetActive(false);
-        
+        // the narrative will disappear after some time
         Invoke("DisableNarrative", 15f);
 
     }
@@ -62,116 +73,36 @@ public class TestGameManager : MonoBehaviour
    
     void Update()
     {
-        //get the weight's value from weight_scale handle(which has the picked weight)
+        //get the  total weight's value from  scale_detect script which attached on right side plate  , the script is attached at the ScalePlate(1) game object within RightPlatePivot
         rightScaleWeight = right_Scale.GetComponent<ScaleDetect>().ReturnFinalValue();
 
-        //get the weight's value from goal_scale handle(which has the goal object)  
+        //get the  total weight's value from  scale_detect script which attached on left side plate  , the script is attached at the ScalePlate game object within LeftPlatePivot
         leftScaleWeight = left_Scale.GetComponent<ScaleDetect>().ReturnFinalValue();
 
-        //to check if there's anything put on the weight_scale handle(which has the picked weight)
+
+
+        //if the there are weights on both left scale plates and right scale plates , set hasThingOnBothScale to true , if not set it to false;
         if (left_Scale.GetComponent<ScaleDetect>().hasThingOn == true && right_Scale.GetComponent<ScaleDetect>().hasThingOn == true)
         {
-            hasThingOnBothScale = right_Scale.GetComponent<ScaleDetect>().ReturnBool();
+            hasThingOnBothScale = true;
             
         }
         else { hasThingOnBothScale = false; }
 
-        
-        
 
-        
-
-        //if there's something on the weight_scale , check if two side has the same weight value
-        if (hasThingOnBothScale == true)
-        {
-            CheckValue();
-        }
-
-        else if (!hasThingOnBothScale)
-        {
-
-            CheckValue();
-           
-        }
+        // to set up the value for Bool eaqualFXShouldPlay
+        SettingBoolForEaqulFXShouldPlay();
 
 
-       
-
-
-        //check if the eaqual effect should be player
-        if (eaqualShouldPlayer == true)
-        {
-            if (EaqulEffect)
-            {
-                EaqulEffect.SetActive(true);
-                EaqulEffect.GetComponent<ParticleSystem>().Play();
-                StartCoroutine(FadeAudioSource.StartFade(EaqulEffect2.GetComponent<AudioSource>(), 2f, 0.2f));
-
-                
-            }
-            if (EaqulEffect2)
-            {
-                EaqulEffect2.SetActive(true);
-                EaqulEffect2.GetComponent<ParticleSystem>().Play();
-                StartCoroutine(FadeAudioSource.StartFade(EaqulEffect2.GetComponent<AudioSource>(), 2f, 0.2f));
-                
-            }
-
-        }
-        else if (eaqualShouldPlayer == false)
-        {
-            EaqulEffect.GetComponent<ParticleSystem>().Stop();
-            EaqulEffect2.GetComponent<ParticleSystem>().Stop();
-            StartCoroutine(FadeAudioSource.StartFade(EaqulEffect.GetComponent<AudioSource>(), 2f, 0f));
-            StartCoroutine(FadeAudioSource.StartFade(EaqulEffect2.GetComponent<AudioSource>(), 2f, 0f));
-
-            //record.GetComponentInChildren<RotateRecord>().enabled = false;
-            //record.SetActive(false);
-            recordShouldAppear = false;
-            
-
-        }
-
-
-        //check if the record should appear
-        if (recordShouldAppear == true)
-        {
-            record.SetActive(true);
-            recordPlayer.GetComponentInChildren<RotateRecord>().enabled = true;
-            //recordPlayer.GetComponent<AudioSource>().Play();
-            StartCoroutine(FadeAudioSource.StartFade(recordPlayer.GetComponent<AudioSource>(), 0.6f, 0.6f));
-
-
-        }
-        else if(recordShouldAppear == false)
-        {
-            recordPlayer.GetComponentInChildren<RotateRecord>().enabled = false;
-            record.SetActive(false);
-            StartCoroutine(FadeAudioSource.StartFade(recordPlayer.GetComponent<AudioSource>(), 0.6f, 0f));
-        }
-
-       
+        //check if EaqualFX should play or not
+        CheckIfEaqualFxShouldPlay();
 
 
 
        //check if there has same type weight on the scale
         StartCoroutine(HasSameTypeCheck());
 
-       
-
-
-
-        if (leftScaleWeight == rightScaleWeight && hasThingOnBothScale == true && alreadyHasThatType == false)
-        {
-
-            isEaqual = true;
-        }
-        else
-        {
-            isEaqual = false;
-        }
-
-
+        CheckEaqulOrNot();
        
 
     } 
@@ -180,21 +111,21 @@ public class TestGameManager : MonoBehaviour
     
 
    
-    public void CheckValue()
+    public void SettingBoolForEaqulFXShouldPlay()
 
     {
        
-
+        // if the two sides are not eaqual , the eaqual FX should not be played
         if( isEaqual== false || hasThingOnBothScale == false)
         {
            
             Debug.Log("the weight is not eaqual");
-            eaqualShouldPlayer = false;
+            eaqualFXShouldPlay = false;
 
         }
 
         
-
+        // if the two sides are eaqual ,and there are 5 weights in total, the eaqual FX should be played,
          else if(isEaqual==true && hasThingOnBothScale==true)
         {
             
@@ -211,12 +142,87 @@ public class TestGameManager : MonoBehaviour
     }
 
 
+    public void CheckIfEaqualFxShouldPlay() 
+    {
+        if (eaqualFXShouldPlay == true)
+        {
+            if (EaqulEffect)
+            {
+                EaqulEffect.SetActive(true);
+                EaqulEffect.GetComponent<ParticleSystem>().Play();
+                StartCoroutine(FadeAudioSource.StartFade(EaqulEffect2.GetComponent<AudioSource>(), 2f, 0.2f));
+
+
+            }
+            if (EaqulEffect2)
+            {
+                EaqulEffect2.SetActive(true);
+                EaqulEffect2.GetComponent<ParticleSystem>().Play();
+                StartCoroutine(FadeAudioSource.StartFade(EaqulEffect2.GetComponent<AudioSource>(), 2f, 0.2f));
+
+            }
+
+        }
+        else if (eaqualFXShouldPlay == false)
+        {
+            EaqulEffect.GetComponent<ParticleSystem>().Stop();
+            EaqulEffect2.GetComponent<ParticleSystem>().Stop();
+            StartCoroutine(FadeAudioSource.StartFade(EaqulEffect.GetComponent<AudioSource>(), 2f, 0f));
+            StartCoroutine(FadeAudioSource.StartFade(EaqulEffect2.GetComponent<AudioSource>(), 2f, 0f));
+
+
+            recordShouldAppear = false;
+
+
+        }
+
+
+        //check if the record should appear
+        if (recordShouldAppear == true)
+        {
+            record.SetActive(true);
+            recordPlayer.GetComponentInChildren<RotateRecord>().enabled = true;
+            //recordPlayer.GetComponent<AudioSource>().Play();
+            StartCoroutine(FadeAudioSource.StartFade(recordPlayer.GetComponent<AudioSource>(), 0.6f, 0.6f));
+
+
+        }
+        else if (recordShouldAppear == false)
+        {
+            recordPlayer.GetComponentInChildren<RotateRecord>().enabled = false;
+            record.SetActive(false);
+            StartCoroutine(FadeAudioSource.StartFade(recordPlayer.GetComponent<AudioSource>(), 0.6f, 0f));
+        }
+
+
+
+
+    }
+
+
+    public void CheckEaqulOrNot() 
+    {
+        if (leftScaleWeight == rightScaleWeight && hasThingOnBothScale == true && alreadyHasThatType == false)
+        {
+
+            isEaqual = true;
+        }
+        else
+        {
+            isEaqual = false;
+        }
+
+    }
+
+
+
+  
     IEnumerator PlayEqual() 
     {
        
         yield return new WaitForSeconds(1f);
        
-        eaqualShouldPlayer = true;
+        eaqualFXShouldPlay = true;
           
         yield return new WaitForSeconds(2f);
         if (record) 
@@ -249,9 +255,6 @@ public class TestGameManager : MonoBehaviour
                     {
                         
                         alreadyHasThatType = true;
-                        //currentPickedWeight.transform.position = Vector3.Lerp(currentPickedWeight.transform.position, currentPickedWeight.GetComponent<Weight>().StartPosition, smoothing * 2);
-                       /* currentPickedWeight.transform.position = PortalPosition.position;
-                        currentPickedWeight.transform.rotation = currentPickedWeight.GetComponent<Weight>().StartRotation;*/
                        weightsOnPlate[i].transform.position = PortalPosition.position;
                         weightsOnPlate[i].transform.rotation = weightsOnPlate[i].GetComponent<Weight>().StartRotation;
 
