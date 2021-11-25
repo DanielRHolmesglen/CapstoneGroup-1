@@ -13,7 +13,7 @@ public class ScaleDetect : MonoBehaviour
     public float CurrentTotalWeight = 0;
     public GameObject CurrentPickedWeight;
     public TestGameManager TestGameManagerScript;
-    public GameObject ScaleTilter;
+    public ScaleTilter scaleTilter;
 
     //a list of current weights
     public List<GameObject> weights = new List<GameObject>();
@@ -30,6 +30,7 @@ public class ScaleDetect : MonoBehaviour
 
     //to check if there has weight on this plate
     public bool hasThingOn = false;
+    
    
     //snap point muber
     public int snapInt = 0;
@@ -43,6 +44,7 @@ public class ScaleDetect : MonoBehaviour
     void Start()
     {
         TestGameManagerScript = TestGameManagerScript.GetComponent<TestGameManager>();
+        scaleTilter = GetComponent<ScaleTilter>();
         
     }
 
@@ -62,10 +64,6 @@ public class ScaleDetect : MonoBehaviour
         }
 
 
-        //StartCoroutine(HasSameTypeCheck());
-       
-        
-       
 
     }
 
@@ -80,6 +78,9 @@ public class ScaleDetect : MonoBehaviour
             TestGameManagerScript.currentPickedWeight = other.gameObject;
             AddWeight(other.gameObject);
             SetWeight(other.gameObject);
+
+            
+
         }
            
 
