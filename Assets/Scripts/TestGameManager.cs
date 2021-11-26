@@ -97,8 +97,6 @@ public class TestGameManager : MonoBehaviour
         //check if EaqualFX should play or not
         CheckIfEaqualFxShouldPlay();
 
-
-
        //check if there has same type weight on the scale
         StartCoroutine(HasSameTypeCheck());
 
@@ -150,7 +148,7 @@ public class TestGameManager : MonoBehaviour
             {
                 EaqulEffect.SetActive(true);
                 EaqulEffect.GetComponent<ParticleSystem>().Play();
-                StartCoroutine(FadeAudioSource.StartFade(EaqulEffect2.GetComponent<AudioSource>(), 2f, 0.2f));
+               // StartCoroutine(FadeAudioSource.StartFade(EaqulEffect2.GetComponent<AudioSource>(), 2f, 0.2f));
 
 
             }
@@ -158,7 +156,7 @@ public class TestGameManager : MonoBehaviour
             {
                 EaqulEffect2.SetActive(true);
                 EaqulEffect2.GetComponent<ParticleSystem>().Play();
-                StartCoroutine(FadeAudioSource.StartFade(EaqulEffect2.GetComponent<AudioSource>(), 2f, 0.2f));
+               // StartCoroutine(FadeAudioSource.StartFade(EaqulEffect2.GetComponent<AudioSource>(), 2f, 0.2f));
 
             }
 
@@ -167,8 +165,8 @@ public class TestGameManager : MonoBehaviour
         {
             EaqulEffect.GetComponent<ParticleSystem>().Stop();
             EaqulEffect2.GetComponent<ParticleSystem>().Stop();
-            StartCoroutine(FadeAudioSource.StartFade(EaqulEffect.GetComponent<AudioSource>(), 2f, 0f));
-            StartCoroutine(FadeAudioSource.StartFade(EaqulEffect2.GetComponent<AudioSource>(), 2f, 0f));
+            //StartCoroutine(FadeAudioSource.StartFade(EaqulEffect.GetComponent<AudioSource>(), 2f, 0f));
+           // StartCoroutine(FadeAudioSource.StartFade(EaqulEffect2.GetComponent<AudioSource>(), 2f, 0f));
 
 
             recordShouldAppear = false;

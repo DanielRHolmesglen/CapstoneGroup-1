@@ -82,4 +82,14 @@ public class Weight : MonoBehaviour
     }
 
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<FloorTag>())
+        {
+            transform.position = StartPosition;
+            transform.rotation = StartRotation;
+        }
+    }
+
+
 }
