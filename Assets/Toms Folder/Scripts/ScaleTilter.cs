@@ -8,9 +8,9 @@ public class ScaleTilter : MonoBehaviour
     public Transform rightPlate;
 
     //This line is added by SiTe ,it's mainly used to reference the GameManager
-    public GameObject GameManager;
+    public TestGameManager gameManager;
 
-    bool scaleIsBalanced = false;
+    public bool scaleIsBalanced = false;
     
     public float leftPlateValue;
     public float rightPlateValue;
@@ -36,18 +36,13 @@ public class ScaleTilter : MonoBehaviour
     {
         //not working
         transform.rotation = Quaternion.Lerp(balanced,startTiltAngle, Time.deltaTime * tiltSpeed);
-        leftPlateValue = GameManager.GetComponent<TestGameManager>().leftScaleWeight;
-        rightPlateValue = GameManager.GetComponent<TestGameManager>().rightScaleWeight;
+        
     }
 
     
     void Update() 
     {
-        //these two lines was added by SiTe , mainly used to get the value of two plates from GameManager 
-        leftPlateValue = GameManager.GetComponent<TestGameManager>().leftScaleWeight;
-        rightPlateValue = GameManager.GetComponent<TestGameManager>().rightScaleWeight;
-
-        WeightAmountUpdated();
+        
     }
     public void CalculateWeights()
     {
@@ -76,8 +71,10 @@ public class ScaleTilter : MonoBehaviour
         }
     }
 
-    public void WeightAmountUpdated()
+    public void WeightAmountUpdated(float leftScaleWeight, float rightScaleWeight)
     {
+        leftPlateValue = leftScaleWeight;
+        rightPlateValue = rightScaleWeight;
         CalculateWeights();
     }
     

@@ -10,23 +10,18 @@ public class ScaleDetect : MonoBehaviour
     //PS: this script need to be attached to each side of the scale handle
 
    // current total weight value
-    public float CurrentTotalWeight = 0;
-    public GameObject CurrentPickedWeight;
-    public TestGameManager TestGameManagerScript;
-    public GameObject ScaleTilter;
+    public float currentTotalWeight = 0;
+    public GameObject currentPickedWeight;
+    public TestGameManager testGameManagerScript;
+    public ScaleTilter scaleTilter;
 
     //a list of current weights
     public List<GameObject> weights = new List<GameObject>();
 
     //a list of the snap point transform
     public List<Transform> weightTransforms = new List<Transform>();
-    
-   
 
-   
-    
-
-
+    public string side;
 
     //to check if there has weight on this plate
     public bool hasThingOn = false;
@@ -36,23 +31,17 @@ public class ScaleDetect : MonoBehaviour
     public float smoothing = 0.4f;
 
 
-
-
-
     // Start is called before the first frame update
     void Start()
     {
-        TestGameManagerScript = TestGameManagerScript.GetComponent<TestGameManager>();
-        
+       
     }
 
     // Update is called once per frame
     void Update()
     {
 
-     
-
-        if (CurrentTotalWeight == 0)
+        if (currentTotalWeight == 0)
         {
             hasThingOn = false;
         }
@@ -61,15 +50,9 @@ public class ScaleDetect : MonoBehaviour
             hasThingOn = true;
         }
 
-
         //StartCoroutine(HasSameTypeCheck());
        
-        
-       
-
     }
-
-    
 
 
     //if there's a weight put on the scale
@@ -77,18 +60,13 @@ public class ScaleDetect : MonoBehaviour
     {
         if (other.transform.GetComponent<Draggable>().isDragging == false)
         {
-            TestGameManagerScript.currentPickedWeight = other.gameObject;
+            testGameManagerScript.currentPickedWeight = other.gameObject;
             AddWeight(other.gameObject);
             SetWeight(other.gameObject);
         }
            
 
-
     }
-
-
-        
-     
 
 
     //if you remove a weight from current scale
@@ -98,8 +76,6 @@ public class ScaleDetect : MonoBehaviour
         RemoveWeight(collision.gameObject); //remove weight from list
         collision.gameObject.GetComponent<Weight>().StopPlaySound();
 
-      
-        
     }
 
     //list management function
@@ -107,7 +83,7 @@ public class ScaleDetect : MonoBehaviour
     {
         
         weights.Add(thisWeight);
-        TestGameManagerScript.weightsOnPlate.Add(thisWeight);
+        testGameManagerScript.weightsOnPlate.Add(thisWeight);
         snapInt += 1;
         if (snapInt == 8)
         {
@@ -123,22 +99,21 @@ public class ScaleDetect : MonoBehaviour
     {
        
         weights.Remove(thisWeight);
-        TestGameManagerScript.weightsOnPlate.Remove(thisWeight);
+        testGameManagerScript.weightsOnPlate.Remove(thisWeight);
         UpdateCurrentTotalWeight();
 
     }
 
-
     void UpdateCurrentTotalWeight()
     {
-        CurrentTotalWeight = 0;
+        currentTotalWeight = 0;
         for (int i = 0; i < weights.Count; i++)
         {
 
-            CurrentTotalWeight += weights[i].gameObject.GetComponent<Weight>().weightValue;        
+            currentTotalWeight += weights[i].gameObject.GetComponent<Weight>().weightValue;        
         }
-
-
+        testGameManagerScript.WeightValues(currentTotalWeight, side);
+        
     }
 
     void SetWeight(GameObject thisWeight) 
@@ -146,8 +121,6 @@ public class ScaleDetect : MonoBehaviour
         thisWeight.transform.position = Vector3.Lerp(thisWeight.transform.position, weightTransforms[snapInt].transform.position, smoothing);
         thisWeight.transform.rotation = thisWeight.GetComponent<Weight>().StartRotation;
       
-
-
         //play effect 
         if (thisWeight.GetComponent<ParticleSystem>())
         {
@@ -162,29 +135,18 @@ public class ScaleDetect : MonoBehaviour
     }
 
 
-  
-
-
-    
-
-   
-
-    
-
     // other script can call this function to get the bool value
     public bool ReturnBool()
     {
         return hasThingOn;
     }
 
-
     // other script can call this function to get the weight's value when the weight is put on the scale
 
     public float ReturnFinalValue()
     {
-        return CurrentTotalWeight;
+        return currentTotalWeight;
     }
-
 
     private void OnDrawGizmos()
     {
@@ -195,7 +157,5 @@ public class ScaleDetect : MonoBehaviour
         
         }
     }
-
-
 
 }

@@ -7,19 +7,19 @@ public class TestGameManager : MonoBehaviour
 {
     //ps: this script need to be attached to an empty game object(a game manager)
     //things need to be manually set up in inspector
-
+    public ScaleTilter scaleTilter;
     // a reference of the left scale plate
-    public GameObject left_Scale;
+    public ScaleDetect left_Scale;
     // a reference of the right scale plate
-    public GameObject right_Scale;
+    public ScaleDetect right_Scale;
     // raining particle effects
-    public GameObject EaqulEffect;
-    public GameObject EaqulEffect2;
+    public ParticleSystem eaqulEffect;
+    public ParticleSystem eaqulEffect2;
    
     // a reference of the curret weight that are being picked up
     public GameObject currentPickedWeight;
     //a reference to the record base
-    public GameObject recordPlayer;
+    public RecordRotate recordPlayer;
     // a reference to the record
     public GameObject record;
     //a reference to the record's particle effect
@@ -38,7 +38,7 @@ public class TestGameManager : MonoBehaviour
     public bool eaqualFXShouldPlay = false;
     
     //a reference of the portal point that the old same type weight will be transformed to
-    public Transform PortalPosition;
+    public Transform portalPosition;
 
 
     public float smoothing = 0.4f;
@@ -62,9 +62,10 @@ public class TestGameManager : MonoBehaviour
     
     void Start()
     {
+
         // make sure raining particle effect turned off
-        EaqulEffect.SetActive(false);
-        EaqulEffect2.SetActive(false);
+        eaqulEffect.Play(false);
+        eaqulEffect2.Play(false);
         // the narrative will disappear after some time
         Invoke("DisableNarrative", 15f);
 
@@ -74,15 +75,15 @@ public class TestGameManager : MonoBehaviour
     void Update()
     {
         //get the  total weight's value from  scale_detect script which attached on right side plate  , the script is attached at the ScalePlate(1) game object within RightPlatePivot
-        rightScaleWeight = right_Scale.GetComponent<ScaleDetect>().ReturnFinalValue();
+        //rightScaleWeight = right_Scale.GetComponent<ScaleDetect>().ReturnFinalValue();
 
         //get the  total weight's value from  scale_detect script which attached on left side plate  , the script is attached at the ScalePlate game object within LeftPlatePivot
-        leftScaleWeight = left_Scale.GetComponent<ScaleDetect>().ReturnFinalValue();
+        //leftScaleWeight = left_Scale.GetComponent<ScaleDetect>().ReturnFinalValue();
 
 
 
         //if the there are weights on both left scale plates and right scale plates , set hasThingOnBothScale to true , if not set it to false;
-        if (left_Scale.GetComponent<ScaleDetect>().hasThingOn == true && right_Scale.GetComponent<ScaleDetect>().hasThingOn == true)
+        if (left_Scale.hasThingOn == true && right_Scale.hasThingOn == true)
         {
             hasThingOnBothScale = true;
             
@@ -107,7 +108,16 @@ public class TestGameManager : MonoBehaviour
 
     } 
 
+    public void WeightValues(float scaleWeight, string side)
+    {
+        if(side == "right")
+        {
+            rightScaleWeight = scaleWeight;
+        } 
+        else  leftScaleWeight = scaleWeight;
 
+        scaleTilter.WeightAmountUpdated(leftScaleWeight,rightScaleWeight);
+    }
     
 
    
@@ -146,29 +156,29 @@ public class TestGameManager : MonoBehaviour
     {
         if (eaqualFXShouldPlay == true)
         {
-            if (EaqulEffect)
+            if (eaqulEffect)
             {
-                EaqulEffect.SetActive(true);
-                EaqulEffect.GetComponent<ParticleSystem>().Play();
-                StartCoroutine(FadeAudioSource.StartFade(EaqulEffect2.GetComponent<AudioSource>(), 2f, 0.2f));
+                eaqulEffect.Play(true);
+                //eaqulEffect.GetComponent<ParticleSystem>().Play();
+                //StartCoroutine(FadeAudioSource.StartFade(eaqulEffect2.GetComponent<AudioSource>(), 2f, 0.2f));
 
 
             }
-            if (EaqulEffect2)
+            if (eaqulEffect2)
             {
-                EaqulEffect2.SetActive(true);
-                EaqulEffect2.GetComponent<ParticleSystem>().Play();
-                StartCoroutine(FadeAudioSource.StartFade(EaqulEffect2.GetComponent<AudioSource>(), 2f, 0.2f));
+                eaqulEffect2.Play(true);
+                //eaqulEffect2.GetComponent<ParticleSystem>().Play();
+                //StartCoroutine(FadeAudioSource.StartFade(eaqulEffect2.GetComponent<AudioSource>(), 2f, 0.2f));
 
             }
 
         }
         else if (eaqualFXShouldPlay == false)
         {
-            EaqulEffect.GetComponent<ParticleSystem>().Stop();
-            EaqulEffect2.GetComponent<ParticleSystem>().Stop();
-            StartCoroutine(FadeAudioSource.StartFade(EaqulEffect.GetComponent<AudioSource>(), 2f, 0f));
-            StartCoroutine(FadeAudioSource.StartFade(EaqulEffect2.GetComponent<AudioSource>(), 2f, 0f));
+            eaqulEffect.Stop();
+            eaqulEffect2.Stop();
+            //StartCoroutine(FadeAudioSource.StartFade(eaqulEffect.GetComponent<AudioSource>(), 2f, 0f));
+            //StartCoroutine(FadeAudioSource.StartFade(eaqulEffect2.GetComponent<AudioSource>(), 2f, 0f));
 
 
             recordShouldAppear = false;
@@ -181,7 +191,7 @@ public class TestGameManager : MonoBehaviour
         if (recordShouldAppear == true)
         {
             record.SetActive(true);
-            recordPlayer.GetComponentInChildren<RotateRecord>().enabled = true;
+            recordPlayer.enabled = true;
             //recordPlayer.GetComponent<AudioSource>().Play();
             StartCoroutine(FadeAudioSource.StartFade(recordPlayer.GetComponent<AudioSource>(), 0.6f, 0.6f));
 
@@ -189,7 +199,7 @@ public class TestGameManager : MonoBehaviour
         }
         else if (recordShouldAppear == false)
         {
-            recordPlayer.GetComponentInChildren<RotateRecord>().enabled = false;
+            recordPlayer.enabled = false;
             record.SetActive(false);
             StartCoroutine(FadeAudioSource.StartFade(recordPlayer.GetComponent<AudioSource>(), 0.6f, 0f));
         }
@@ -255,7 +265,7 @@ public class TestGameManager : MonoBehaviour
                     {
                         
                         alreadyHasThatType = true;
-                       weightsOnPlate[i].transform.position = PortalPosition.position;
+                       weightsOnPlate[i].transform.position = portalPosition.position;
                         weightsOnPlate[i].transform.rotation = weightsOnPlate[i].GetComponent<Weight>().StartRotation;
 
                         currentPickedWeight = null;
