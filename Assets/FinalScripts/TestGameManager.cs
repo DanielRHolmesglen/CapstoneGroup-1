@@ -67,7 +67,7 @@ public class TestGameManager : MonoBehaviour
         musicalNotesParticle1.Play(false);
         musicalNotesParticle2.Play(false);
         // the narrative will disappear after some time
-        Invoke("DisableNarrative", 15f);
+        //Invoke("DisableNarrative", 15f);
 
     }
 

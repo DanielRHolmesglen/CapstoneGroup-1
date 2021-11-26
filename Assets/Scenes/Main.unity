@@ -1674,7 +1674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distToPickup: 6
-  DebugParticle: {fileID: 1540113799}
+  DebugParticle: {fileID: 0}
 --- !u!114 &715662936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3928,12 +3928,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &1540113799 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8235535695854159421, guid: b81bebcde4565804ea29fdc9a4fc28d6,
-    type: 3}
-  m_PrefabInstance: {fileID: 8235535695169684410}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1611781263
 Mesh:
   m_ObjectHideFlags: 0
@@ -5804,7 +5798,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1845666478}
+      objectReference: {fileID: 485085595}
     - target: {fileID: 6434847066359564885, guid: c329044dd33b0fd49bee6b7e8611f3f8,
         type: 3}
       propertyPath: m_PolyMesh.m_Mesh
