@@ -28,32 +28,26 @@ public class BambooAnimation : MonoBehaviour
         if (gameManager.weightsOnPlate.Count == 0)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, startScale, lerpTime);
-            Debug.Log("No weights");
         }
         else if (gameManager.weightsOnPlate.Count == 1)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(0.6f, 0.2f, 0.6f), lerpTime);
-            Debug.Log("1 weights");
         }
         else if (gameManager.weightsOnPlate.Count == 2)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(0.7f, 0.4f, 0.7f), lerpTime);
-            Debug.Log("2 weights");
         }
         else if (gameManager.weightsOnPlate.Count == 3)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(0.8f, 0.7f, 0.8f), lerpTime);
-            Debug.Log("3 weights");
         }
         else if (gameManager.weightsOnPlate.Count == 4)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(0.9f, 0.9f, 0.9f), lerpTime);
-            Debug.Log("4 weights");
         }
         else if (gameManager.weightsOnPlate.Count == 5)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1, 1, 1), lerpTime);
-            Debug.Log("5 weights");
         }
     }
 }

@@ -1441,6 +1441,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &542182526 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1788720377100359312, guid: 67e39630982fe6b4790d0e80a14c7e2d,
+    type: 3}
+  m_PrefabInstance: {fileID: 944695940}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &564838478 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1260162969591820545, guid: 22276a8657744e04cba8ad0a2caf4195,
@@ -2830,18 +2836,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1260162970260054291, guid: 22276a8657744e04cba8ad0a2caf4195,
     type: 3}
   m_PrefabInstance: {fileID: 1127952297}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &1291590575 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4035212023020776812, guid: 67e39630982fe6b4790d0e80a14c7e2d,
-    type: 3}
-  m_PrefabInstance: {fileID: 944695940}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &1291590576 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1565946929615378687, guid: 67e39630982fe6b4790d0e80a14c7e2d,
-    type: 3}
-  m_PrefabInstance: {fileID: 944695940}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1291590577 stripped
 GameObject:
@@ -5746,6 +5740,12 @@ MonoBehaviour:
   m_Script: {fileID: -1848150265, guid: a80148f7c24f27741a9721c40a216ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2129945267 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4029123454600524834, guid: 67e39630982fe6b4790d0e80a14c7e2d,
+    type: 3}
+  m_PrefabInstance: {fileID: 944695940}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2144001607 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1260162969423114810, guid: 22276a8657744e04cba8ad0a2caf4195,
@@ -8477,12 +8477,12 @@ PrefabInstance:
         type: 3}
       propertyPath: musicalNotesParticle1
       value: 
-      objectReference: {fileID: 1291590576}
+      objectReference: {fileID: 2129945267}
     - target: {fileID: 6539522584758039303, guid: 62db6837936b5eb4ca753121cc2c12ca,
         type: 3}
       propertyPath: musicalNotesParticle2
       value: 
-      objectReference: {fileID: 1291590575}
+      objectReference: {fileID: 542182526}
     - target: {fileID: 6539522584758039303, guid: 62db6837936b5eb4ca753121cc2c12ca,
         type: 3}
       propertyPath: recordPlayer
