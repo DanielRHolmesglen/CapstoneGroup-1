@@ -13,8 +13,8 @@ public class TestGameManager : MonoBehaviour
     // a reference of the right scale plate
     public ScaleDetect right_Scale;
     // raining particle effects
-    public ParticleSystem eaqulEffect;
-    public ParticleSystem eaqulEffect2;
+    public ParticleSystem musicalNotesParticle1;
+    public ParticleSystem musicalNotesParticle2;
    
     // a reference of the curret weight that are being picked up
     public GameObject currentPickedWeight;
@@ -64,8 +64,8 @@ public class TestGameManager : MonoBehaviour
     {
 
         // make sure raining particle effect turned off
-        eaqulEffect.Play(false);
-        eaqulEffect2.Play(false);
+        musicalNotesParticle1.Play(false);
+        musicalNotesParticle2.Play(false);
         // the narrative will disappear after some time
         Invoke("DisableNarrative", 15f);
 
@@ -156,17 +156,17 @@ public class TestGameManager : MonoBehaviour
     {
         if (eaqualFXShouldPlay == true)
         {
-            if (eaqulEffect)
+            if (musicalNotesParticle1)
             {
-                eaqulEffect.Play(true);
+                musicalNotesParticle1.Play(true);
                 //eaqulEffect.GetComponent<ParticleSystem>().Play();
                 //StartCoroutine(FadeAudioSource.StartFade(eaqulEffect2.GetComponent<AudioSource>(), 2f, 0.2f));
 
 
             }
-            if (eaqulEffect2)
+            if (musicalNotesParticle2)
             {
-                eaqulEffect2.Play(true);
+                musicalNotesParticle2.Play(true);
                 //eaqulEffect2.GetComponent<ParticleSystem>().Play();
                 //StartCoroutine(FadeAudioSource.StartFade(eaqulEffect2.GetComponent<AudioSource>(), 2f, 0.2f));
 
@@ -175,8 +175,8 @@ public class TestGameManager : MonoBehaviour
         }
         else if (eaqualFXShouldPlay == false)
         {
-            eaqulEffect.Stop();
-            eaqulEffect2.Stop();
+            musicalNotesParticle1.Stop();
+            musicalNotesParticle2.Stop();
             //StartCoroutine(FadeAudioSource.StartFade(eaqulEffect.GetComponent<AudioSource>(), 2f, 0f));
             //StartCoroutine(FadeAudioSource.StartFade(eaqulEffect2.GetComponent<AudioSource>(), 2f, 0f));
 

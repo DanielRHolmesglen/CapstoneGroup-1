@@ -42,8 +42,9 @@ public class ScaleTilter : MonoBehaviour
     
     void Update() 
     {
-        
+        CalculateWeights();
     }
+
     public void CalculateWeights()
     {
         if (leftPlateValue > rightPlateValue)
