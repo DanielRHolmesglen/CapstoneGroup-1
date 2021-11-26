@@ -19,9 +19,9 @@ public class TestGameManager : MonoBehaviour
     // a reference of the curret weight that are being picked up
     public GameObject currentPickedWeight;
     //a reference to the record base
-    public RecordRotate recordPlayer;
-    // a reference to the record
+    public RotateRecord recordPlayer;
     public GameObject record;
+    public AudioSource recordAudio;
     //a reference to the record's particle effect
     public GameObject recordApperarEffect;
     //a reference to the panel which display narratived at the start
@@ -193,7 +193,7 @@ public class TestGameManager : MonoBehaviour
             record.SetActive(true);
             recordPlayer.enabled = true;
             //recordPlayer.GetComponent<AudioSource>().Play();
-            StartCoroutine(FadeAudioSource.StartFade(recordPlayer.GetComponent<AudioSource>(), 0.6f, 0.6f));
+            StartCoroutine(FadeAudioSource.StartFade(recordAudio, 0.6f, 0.6f));
 
 
         }
@@ -201,7 +201,7 @@ public class TestGameManager : MonoBehaviour
         {
             recordPlayer.enabled = false;
             record.SetActive(false);
-            StartCoroutine(FadeAudioSource.StartFade(recordPlayer.GetComponent<AudioSource>(), 0.6f, 0f));
+            StartCoroutine(FadeAudioSource.StartFade(recordAudio, 0.6f, 0f));
         }
 
 
