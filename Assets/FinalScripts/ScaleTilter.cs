@@ -78,7 +78,7 @@ public class ScaleTilter : MonoBehaviour
         rightPlateValue = rightScaleWeight;
         CalculateWeights();
     }
-    
+
     #region WeightInputsForDebugging 
     /*
     // this will all be set by putting the weights on the plates eventually
@@ -101,5 +101,9 @@ public class ScaleTilter : MonoBehaviour
         CalculateWeights();
     }*/
     #endregion
-    
+
+    //new function added by SiTe
+   
+
+
 }
