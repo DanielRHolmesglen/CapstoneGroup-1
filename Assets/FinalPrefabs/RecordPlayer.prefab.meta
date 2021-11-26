@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/FinalPrefabs/RecordPlayer.prefab.meta
 guid: b81bebcde4565804ea29fdc9a4fc28d6
 PrefabImporter:
+=======
+guid: b1491aca46d3d5c4bb7a1257004e1a83
+folderAsset: yes
+DefaultImporter:
+>>>>>>> main:Assets/FinalPrefabs/Weights.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
